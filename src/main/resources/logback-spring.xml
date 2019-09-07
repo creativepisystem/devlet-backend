@@ -50,6 +50,6 @@
         </root>
     </springProfile>
 
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework" level="DEBUG"/>
     <logger name="devlet.restapi" level="DEBUG"/>
 </configuration>

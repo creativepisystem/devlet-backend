@@ -207,7 +207,7 @@
                         <schema>public</schema>
                     </schemas>
                     <locations>
-                        <location>classpath:/db/migration/postgresql</location>
+                        <location>classpath:/db/migration</location>
                     </locations>
                 </configuration>
             </plugin>

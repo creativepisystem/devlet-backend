@@ -3,6 +3,8 @@ package br.com.creative.devlet.service;
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.security.SecurityUser;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -43,14 +47,38 @@ public class CustomUserDetailsService implements UserDetailsService {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         String username = currentUser.getName();
 
-        log.debug("Re-authenticating user '"+ username + "' for password change request.");
+        //log.debug("Re-authenticating user '"+ username + "' for password change request.");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
 
-        log.debug("Changing password for user '"+ username + "'");
+        //log.debug("Changing password for user '"+ username + "'");
 
         User user = (User) loadUserByUsername(username);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
 
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 }
