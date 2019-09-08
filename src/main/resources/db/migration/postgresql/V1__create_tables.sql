@@ -1,8 +1,5 @@
-create sequence user_id_seq start with 10 increment by 50;
-create sequence role_id_seq start with 10 increment by 50;
-
 create table users (
-    id bigint DEFAULT nextval('user_id_seq') not null,
+    id serial,
     username varchar(255) not null CONSTRAINT user_username_unique UNIQUE,
     password varchar(255) not null,
     name varchar(255) not null,
@@ -13,12 +10,13 @@ create table users (
 );
 
 create table roles (
-    id bigint DEFAULT nextval('role_id_seq') not null,
+    id serial,
     name varchar(255) not null CONSTRAINT role_name_unique UNIQUE,
     primary key (id)
 );
 
 create table user_role (
-    user_id bigint REFERENCES users(id),
-    role_id bigint REFERENCES roles(id)
+    user_id serial REFERENCES users(id),
+    role_id serial REFERENCES roles(id),
+    primary key (user_id,role_id)
 );
