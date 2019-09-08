@@ -1,15 +1,11 @@
 package br.com.creative.devlet.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserTokenState {
 
     @JsonProperty("access_token")
@@ -17,6 +13,14 @@ public class UserTokenState {
 
     @JsonProperty("expires_in")
     private Long expiresIn;
+
+    public UserTokenState() {
+    }
+
+    public UserTokenState(String accessToken, Long expiresIn) {
+        this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
+    }
 
     public String getAccessToken() {
         return accessToken;

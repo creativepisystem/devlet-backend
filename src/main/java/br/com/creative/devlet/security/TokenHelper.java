@@ -2,6 +2,7 @@ package br.com.creative.devlet.security;
 
 import br.com.creative.devlet.config.TimeProvider;
 import br.com.creative.devlet.entity.User;
+import br.com.creative.devlet.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,6 +34,8 @@ public class TokenHelper {
     @Autowired
     TimeProvider timeProvider;
 
+    @Autowired
+    UserService userService;
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     public String getUsernameFromToken(String token) {
@@ -119,7 +122,7 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
+        User user = userService.findByUsername(userDetails.getUsername());
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
         return (

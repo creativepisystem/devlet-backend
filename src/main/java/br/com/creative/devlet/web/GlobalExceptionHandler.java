@@ -1,6 +1,7 @@
 package br.com.creative.devlet.web;
 
 import br.com.creative.devlet.model.ErrorMessage;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
 @ControllerAdvice(annotations = {RestController.class})
 public class GlobalExceptionHandler {
 
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private Logger log;
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity handleBindingErrors(HttpMessageNotReadableException ex) {
         throw ex;
@@ -44,6 +48,7 @@ public class GlobalExceptionHandler {
                 e = new ErrorMessage(objectError.getObjectName(), msg);
             }
             errors.add(e);
+            log.error(e.getMessage());
         }
         return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }

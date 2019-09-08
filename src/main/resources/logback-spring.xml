@@ -38,18 +38,6 @@
         </encoder>
     </appender>
 
-    <springProfile name="docker">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="stash"/>
-        </root>
-    </springProfile>
-    <springProfile name="!docker">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-
-    <logger name="org.springframework" level="DEBUG"/>
+    <logger name="org.springframework" level="INFO"/>
     <logger name="devlet.restapi" level="DEBUG"/>
 </configuration>

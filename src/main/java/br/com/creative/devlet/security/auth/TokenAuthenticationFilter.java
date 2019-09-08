@@ -37,6 +37,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             username = tokenHelper.getUsernameFromToken(authToken);
             if (username != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
                 if (tokenHelper.validateToken(authToken, userDetails)) {
                     TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, userDetails);
                     SecurityContextHolder.getContext().setAuthentication(authentication);

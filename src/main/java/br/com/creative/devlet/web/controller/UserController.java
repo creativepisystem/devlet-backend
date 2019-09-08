@@ -2,7 +2,7 @@ package br.com.creative.devlet.web.controller;
 
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.service.UserService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +14,11 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/users")
-@Slf4j
-public class UserController {
-
-    private final UserService userService;
-
+public class UserController extends BaseController{
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
+    @Autowired
+    Logger log;
 
     @GetMapping("")
     public List<User> getUsers() {

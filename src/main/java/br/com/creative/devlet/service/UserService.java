@@ -12,12 +12,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserService {
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);

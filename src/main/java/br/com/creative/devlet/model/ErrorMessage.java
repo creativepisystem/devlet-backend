@@ -1,17 +1,21 @@
 package br.com.creative.devlet.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class ErrorMessage {
     private String field;
     private String message;
+
+    public ErrorMessage() {
+    }
+
+    public ErrorMessage(String field, String message) {
+        this.field = field;
+        this.message = message;
+    }
 
     public String getField() {
         return field;

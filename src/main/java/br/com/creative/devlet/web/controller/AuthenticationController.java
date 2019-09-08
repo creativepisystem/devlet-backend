@@ -4,6 +4,7 @@ import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.model.AuthenticationRequest;
 import br.com.creative.devlet.model.ChangePassword;
 import br.com.creative.devlet.model.UserTokenState;
+import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
 import br.com.creative.devlet.service.CustomUserDetailsService;
 import br.com.creative.devlet.service.UserService;
@@ -54,7 +55,7 @@ public class AuthenticationController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User user = (User)authentication.getPrincipal();
+        SecurityUser user = (SecurityUser)authentication.getPrincipal();
         String jws = tokenHelper.generateToken( user.getUsername());
         long expiresIn = tokenHelper.getExpiredIn();
         return ResponseEntity.ok(new UserTokenState(jws, expiresIn));

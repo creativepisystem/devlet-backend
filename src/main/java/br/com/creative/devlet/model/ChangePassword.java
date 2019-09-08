@@ -1,17 +1,21 @@
 package br.com.creative.devlet.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class ChangePassword {
     private String oldPassword;
     private String newPassword;
+
+    public ChangePassword() {
+    }
+
+    public ChangePassword(String oldPassword, String newPassword) {
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
+    }
 
     public String getOldPassword() {
         return oldPassword;

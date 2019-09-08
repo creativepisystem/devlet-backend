@@ -1,17 +1,21 @@
 package br.com.creative.devlet.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class AuthenticationRequest {
     private String username;
     private String password;
+
+    public AuthenticationRequest() {
+    }
+
+    public AuthenticationRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;
