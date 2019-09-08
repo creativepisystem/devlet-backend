@@ -14,7 +14,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController extends BaseController{
+public class UserController{
     @Autowired
     private UserService userService;
     @Autowired
