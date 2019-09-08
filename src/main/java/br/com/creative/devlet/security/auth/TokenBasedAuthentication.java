@@ -1,14 +1,15 @@
 package br.com.creative.devlet.security.auth;
 
+import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class TokenBasedAuthentication extends AbstractAuthenticationToken {
 
     private String token;
-    private final UserDetails principle;
+    private final SecurityUser principle;
 
-    public TokenBasedAuthentication(String token, UserDetails principle ) {
+    public TokenBasedAuthentication(String token, SecurityUser principle ) {
         super( principle.getAuthorities() );
         this.token = token;
         this.principle = principle;
@@ -25,7 +26,7 @@ public class TokenBasedAuthentication extends AbstractAuthenticationToken {
     }
 
     @Override
-    public UserDetails getPrincipal() {
+    public SecurityUser getPrincipal() {
         return principle;
     }
 

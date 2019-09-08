@@ -19,6 +19,7 @@ public class SecurityUtils {
         if(authentication != null)
         {
             UserDetails user = (UserDetails) authentication.getPrincipal();
+
             return userRepository.findByUsername(user.getUsername());
         }
         return null;

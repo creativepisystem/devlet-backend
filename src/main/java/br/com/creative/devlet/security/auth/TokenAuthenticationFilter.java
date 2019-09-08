@@ -1,5 +1,6 @@
 package br.com.creative.devlet.security.auth;
 
+import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,10 +37,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (authToken != null) {
             username = tokenHelper.getUsernameFromToken(authToken);
             if (username != null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username);
 
-                if (tokenHelper.validateToken(authToken, userDetails)) {
-                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, userDetails);
+                if (tokenHelper.validateToken(authToken, securityUser)) {
+                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, securityUser);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

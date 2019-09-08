@@ -3,7 +3,7 @@ package br.com.creative.devlet.config;
 import br.com.creative.devlet.security.TokenHelper;
 import br.com.creative.devlet.security.auth.RestAuthenticationEntryPoint;
 import br.com.creative.devlet.security.auth.TokenAuthenticationFilter;
-import br.com.creative.devlet.service.CustomUserDetailsService;
+import br.com.creative.devlet.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private CustomUserDetailsService jwtUserDetailsService;
+    private UserDetailsServiceImpl jwtUserDetailsService;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;

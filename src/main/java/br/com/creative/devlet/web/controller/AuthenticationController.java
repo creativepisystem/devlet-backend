@@ -6,7 +6,7 @@ import br.com.creative.devlet.model.ChangePassword;
 import br.com.creative.devlet.model.UserTokenState;
 import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
-import br.com.creative.devlet.service.CustomUserDetailsService;
+import br.com.creative.devlet.service.UserDetailsServiceImpl;
 import br.com.creative.devlet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private UserService userService;
@@ -79,8 +80,8 @@ public class AuthenticationController {
 
     @RequestMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    public User user(Principal user) {
-        return this.userService.findByUsername(user.getName());
+    public User user(@AuthenticationPrincipal SecurityUser user) {
+        return user.getProfile();
     }
 
     @PostMapping(value = "/change-password")
