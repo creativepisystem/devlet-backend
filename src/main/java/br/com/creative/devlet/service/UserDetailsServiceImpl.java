@@ -41,18 +41,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         String username = currentUser.getName();
-
-        //log.debug("Re-authenticating user '"+ username + "' for password change request.");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
-
-        //log.debug("Changing password for user '"+ username + "'");
-
-        User user = ((SecurityUser) loadUserByUsername(username)).getProfile();
+        User user = userRepository.findByUsername(username);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
-
     }
 }
