@@ -1,7 +1,5 @@
 package br.com.creative.devlet.model;
 
-import br.com.creative.devlet.enums.EnumResponseType;
-
 public class ResponseModel {
     private String type;
     private String message;

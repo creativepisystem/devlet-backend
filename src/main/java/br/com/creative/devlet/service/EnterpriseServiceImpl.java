@@ -1,7 +1,8 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Enterprise;
-import br.com.creative.devlet.model.EnterpriseModel;
+import br.com.creative.devlet.exception.BussinessException;
+import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +29,16 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
     @Transactional
     @Override
-    public Enterprise create(EnterpriseModel model) {
+    public Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException {
+        NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj()) != null);
         return enterpriseRepository.save(convertModelToEntity(model));
     }
 
     @Transactional
     @Override
-    public Enterprise update(EnterpriseModel model) {
+    public Enterprise update(EnterpriseCreateUpdateModel model) throws BussinessException {
+        Enterprise entity = enterpriseRepository.findByCnpj(model.getCnpj());
+        CNPJ_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity != null && !entity.getId().equals(model.getId()));
         return enterpriseRepository.save(convertModelToEntity(model));
     }
 
@@ -52,7 +56,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return enterpriseRepository.findByCnpj(cnpj);
     }
 
-    private Enterprise convertModelToEntity(EnterpriseModel model){
+    private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model){
         Enterprise entity = new Enterprise();
         if(model.getId() != null){
             entity.setId(model.getId());

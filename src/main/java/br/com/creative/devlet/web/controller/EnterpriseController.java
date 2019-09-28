@@ -1,7 +1,9 @@
 package br.com.creative.devlet.web.controller;
 
 import br.com.creative.devlet.entity.Enterprise;
-import br.com.creative.devlet.model.EnterpriseModel;
+import br.com.creative.devlet.enums.EnumResponseType;
+import br.com.creative.devlet.exception.BussinessException;
+import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
 import br.com.creative.devlet.service.EnterpriseService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/enterprises")
-public class EnterpriseController {
+public class EnterpriseController extends BaseController{
     @Autowired
     private EnterpriseService enterpriseService;
     @Autowired
@@ -35,17 +37,21 @@ public class EnterpriseController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterpriseModel enterprise, BindingResult validation) {
-        if(validation.hasFieldErrors()){
-            return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
+    public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
+        if(validation.hasErrors()){
+            return getErrorsResponse(validation);
         }else{
-            return new ResponseEntity<>(enterpriseService.create(enterprise), HttpStatus.ACCEPTED);
+            try {
+                return new ResponseEntity<>(enterpriseService.create(enterprise), HttpStatus.CREATED);
+            } catch (BussinessException e) {
+                return getResponse(e.getMessage(), EnumResponseType.BUSSINESS_EXCEPTION);
+            }
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseModel enterprise,  BindingResult validation) {
-        if(validation.hasFieldErrors()){
+    public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
+        if(validation.hasErrors()){
             return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
         }else{
             enterprise.setId(id);

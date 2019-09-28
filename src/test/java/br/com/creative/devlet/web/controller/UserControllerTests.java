@@ -1,9 +1,9 @@
 package br.com.creative.devlet.web.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import br.com.creative.devlet.utils.TestHelper;
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.service.UserService;
+import br.com.creative.devlet.utils.TestHelper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
