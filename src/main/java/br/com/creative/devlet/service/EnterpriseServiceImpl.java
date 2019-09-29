@@ -4,6 +4,7 @@ import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
+import br.com.creative.devlet.web.controller.EnterpriseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,9 +57,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return enterpriseRepository.findByCnpj(cnpj);
     }
 
-    private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model){
+    private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model) {
         Enterprise entity = new Enterprise();
-        if(model.getId() != null){
+        if (model.getId() != null) {
             entity.setId(model.getId());
         }
         entity.setCity(model.getCity());
@@ -74,6 +75,26 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         entity.setStreet(model.getStreet());
         entity.setType(model.getType());
         entity.setZipCode(model.getZipCode());
-        return  entity;
+        return entity;
     }
+    /**
+     public Enterprise convertEntityToModel(Enterprise entity){
+     EnterpriseCreateUpdateModel model = new EnterpriseCreateUpdateModel();
+     model.setId(entity.getId());
+     model.setCnpj(entity.getCnpj());
+     model.setCity(entity.getCnpj());
+     model.setCountry(entity.getCountry());
+     model.setEmail(entity.getEmail());
+     model.setEnabled(entity.getEnabled());
+     model.setName(entity.getName());
+     model.setNeighborhood(entity.getNeighborhood());
+     model.setNumber(entity.getNumber());
+     model.setPhone(entity.getPhone());
+     model.setState(entity.getState());
+     model.setStreet(entity.getStreet());
+     model.setType(entity.getType());
+     model.setZipCode(entity.getZipCode());
+     return  model;
+     }
+     */
 }

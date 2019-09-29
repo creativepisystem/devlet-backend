@@ -1,43 +1,47 @@
 package br.com.creative.devlet.model;
 
+import br.com.creative.devlet.validations.Cnpj;
+import br.com.creative.devlet.validations.Empty;
+
 import javax.validation.constraints.*;
 
 public class EnterpriseCreateUpdateModel {
 
     private Long id;
-    @NotEmpty(message = "Name can't be empty")
+    @NotBlank(message = "Name can't be empty")
     @Size(min = 2, max = 100, message = "Name must be within 2 and 8 characters ")
     private String name;
-    @NotEmpty(message = "Phone can't be empty ")
-    @Pattern(regexp = "^[(]\\d{2}[)]\\d{4,5}[-]\\d{4}$")
+    @NotBlank(message = "Phone can't be empty ")
+    @Pattern(regexp = "^[(]\\d{2}[)]\\d{4,5}[-]\\d{4}$", message = "Phone must match the mask: (11)01111-1111")
     private String phone;
-    @NotEmpty(message = "Email can't be empty")
+    @NotBlank(message = "Email can't be empty")
     @Email(message = "Email must be a valid email")
     private String email;
-    @NotEmpty(message = "ZipCod can't be empty")
+    @NotBlank(message = "ZipCod can't be empty")
     @Size(min = 8, max = 8, message = "Zipcode must have 8 numbers")
     private String zipCode;
-    @NotEmpty(message = "Street can't be empty")
+    @NotBlank(message = "Street can't be empty")
     @Size(min = 5, max = 150, message = "Street must be within 5 and 150 characters")
     private String street;
-    @NotEmpty(message = "Number can't be empty")
+    @NotNull(message = "Number can't be empty")
     @Positive(message = "Number must be positive")
     private Integer number;
-    @NotEmpty(message = "Neighborhood can't be empty")
+    @NotBlank(message = "Neighborhood can't be empty")
     @Size(min = 5, max = 80, message = "Neighborhood must be within 5 and 80 characters")
     private String neighborhood;
-    @NotEmpty(message = "City can't be empty")
+    @NotBlank(message = "City can't be empty")
     @Size(min = 2, max = 100, message = "City must be within 2 and 100 characters")
     private String city;
-    @NotEmpty(message = "State can't be empty")
+    @NotBlank(message = "State can't be empty")
     private String state;
-    @NotEmpty(message = "Country can't be empty")
+    @NotBlank(message = "Country can't be empty")
     private String country;
-    @NotEmpty(message = "Cnpj can't be empty")
+    @NotBlank(message = "Cnpj can't be empty")
+    @Cnpj(message = "Cnpj must be a valid Cnpj")
     private String cnpj;
-    @NotEmpty(message = "Type can't be empty")
+    @NotBlank(message = "Type can't be empty")
     private String type;
-    @NotEmpty(message = "Enable must be true or false")
+    @Empty(message = "Enable must be true or false")
     private Boolean enabled;
 
     public Long getId() {
@@ -49,7 +53,7 @@ public class EnterpriseCreateUpdateModel {
     }
 
     public String getPhone() {
-        return phone;
+        return phone.replaceAll("[\\W]", "");
     }
 
     public String getEmail() {
@@ -85,7 +89,7 @@ public class EnterpriseCreateUpdateModel {
     }
 
     public String getCnpj() {
-        return cnpj;
+        return cnpj.replaceAll("[\\W]", "");
     }
 
     public String getType() {

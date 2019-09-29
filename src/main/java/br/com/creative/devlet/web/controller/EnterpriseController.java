@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/enterprises")
-public class EnterpriseController extends BaseController{
+public class EnterpriseController extends BaseController {
     @Autowired
     private EnterpriseService enterpriseService;
     @Autowired
@@ -32,15 +32,15 @@ public class EnterpriseController extends BaseController{
     @GetMapping("/{id}")
     public ResponseEntity<Enterprise> getEnterprise(@PathVariable Long id) {
         Optional<Enterprise> enterprise = enterpriseService.findById(id);
-        return enterprise.map( e -> ResponseEntity.ok(e))
+        return enterprise.map(e -> ResponseEntity.ok(e))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("")
     public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
-        if(validation.hasErrors()){
+        if (validation.hasErrors()) {
             return getErrorsResponse(validation);
-        }else{
+        } else {
             try {
                 return new ResponseEntity<>(enterpriseService.create(enterprise), HttpStatus.CREATED);
             } catch (BussinessException e) {
@@ -51,11 +51,15 @@ public class EnterpriseController extends BaseController{
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
-        if(validation.hasErrors()){
+        if (validation.hasErrors()) {
             return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
-        }else{
-            enterprise.setId(id);
-            return new ResponseEntity<>(enterpriseService.update(enterprise), HttpStatus.OK);
+        } else {
+            try {
+                enterprise.setId(id);
+                return new ResponseEntity<>(enterpriseService.update(enterprise), HttpStatus.OK);
+            } catch (BussinessException e) {
+                return getResponse(e.getMessage(), EnumResponseType.BUSSINESS_EXCEPTION);
+            }
         }
     }
 
