@@ -18,7 +18,7 @@ public class EnterpriseCreateUpdateModel {
     @Email(message = "Email must be a valid email")
     private String email;
     @NotBlank(message = "ZipCod can't be empty")
-    @Size(min = 8, max = 8, message = "Zipcode must have 8 numbers")
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\-\\d{3}$",message = "Zipcode must match the mask: 11.111-111")
     private String zipCode;
     @NotBlank(message = "Street can't be empty")
     @Size(min = 5, max = 150, message = "Street must be within 5 and 150 characters")
