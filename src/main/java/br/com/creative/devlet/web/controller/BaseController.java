@@ -1,7 +1,6 @@
 package br.com.creative.devlet.web.controller;
 
 import br.com.creative.devlet.enums.EnumResponseType;
-import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.ResponseModel;
 import br.com.creative.devlet.model.ValidationErrorModel;
 import org.springframework.http.HttpStatus;

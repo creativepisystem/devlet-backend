@@ -5,8 +5,6 @@ import br.com.creative.devlet.validations.Length;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-
 @Data
 @Builder
 public class ChangePasswordModel {

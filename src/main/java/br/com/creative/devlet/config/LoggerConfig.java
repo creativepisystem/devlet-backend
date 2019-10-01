@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import static java.util.Optional.of;
 import static org.slf4j.LoggerFactory.getLogger;
 
