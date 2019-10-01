@@ -18,6 +18,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Autowired
     private EnterpriseRepository enterpriseRepository;
 
+    @Autowired
+    private IntegrationService integrationService;
+
     @Override
     public Optional<Enterprise> findById(Long id) {
         return enterpriseRepository.findById(id);
@@ -32,12 +35,22 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Override
     public Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException {
         NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj()) != null);
-        return enterpriseRepository.save(convertModelToEntity(model));
+        integrationService.getAdressByZipCode(model.getZipCode());
+        Enterprise entity = convertModelToEntity(model);
+        entity.setCnpj(entity.getCnpj().replaceAll("[^0-9]",""));
+        entity.setZipCode(entity.getZipCode().replaceAll("[^0-9]",""));
+        entity.setPhone(entity.getPhone().replaceAll("[^0-9]",""));
+
+
+        return enterpriseRepository.save(entity);
     }
 
     @Transactional
     @Override
     public Enterprise update(EnterpriseCreateUpdateModel model) throws BussinessException {
+        model.setCnpj(model.getCnpj().replaceAll("[^0-9]",""));
+        model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
+        model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
         Enterprise entity = enterpriseRepository.findByCnpj(model.getCnpj());
         CNPJ_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity != null && !entity.getId().equals(model.getId()));
         return enterpriseRepository.save(convertModelToEntity(model));
