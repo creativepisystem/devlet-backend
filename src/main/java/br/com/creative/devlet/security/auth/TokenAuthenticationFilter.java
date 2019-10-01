@@ -3,7 +3,6 @@ package br.com.creative.devlet.security.auth;
 import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 

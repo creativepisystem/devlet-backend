@@ -3,15 +3,12 @@ package br.com.creative.devlet.service;
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.security.SecurityUser;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,18 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         String username = currentUser.getName();
-
-        //log.debug("Re-authenticating user '"+ username + "' for password change request.");
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
-
-        //log.debug("Changing password for user '"+ username + "'");
-
-        User user = ((SecurityUser) loadUserByUsername(username)).getProfile();
+        User user = userRepository.findByUsername(username);
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
-
     }
 }
