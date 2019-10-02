@@ -22,5 +22,5 @@ public interface PersonService {
 
     void delete (Long id);
 
-    Person findByCpf(String cpf);
+    Optional<Person> findByCpf(String cpf);
 }

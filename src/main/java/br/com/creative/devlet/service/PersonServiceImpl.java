@@ -33,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     @Override
     public Person create(PersonModel model) throws BussinessException {
-        NON_UNIQUE_CPF_EXCEPTION.thrownIf(personRepository.findByCpf(model.getCpf().replaceAll("[^0-9]", "")) != null);
+        NON_UNIQUE_CPF_EXCEPTION.thrownIf(personRepository.findByCpf(model.getCpf().replaceAll("[^0-9]", "")).isPresent());
         integrationService.getAdressByZipCode(model.getZipCode());
         Person entity = convertModelToEntity(model);
         entity.setCpf(entity.getCpf().replaceAll("[^0-9]",""));
@@ -48,8 +48,8 @@ public class PersonServiceImpl implements PersonService {
         model.setCpf(model.getCpf().replaceAll("[^0-9]",""));
         model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
         model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
-        Person entity = personRepository.findByCpf(model.getCpf());
-        CPF_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity != null && !entity.getId().equals(model.getId()));
+        Optional<Person> entity = personRepository.findByCpf(model.getCpf());
+        CPF_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity.isPresent() && !entity.get().getId().equals(model.getId()));
         return personRepository.save(convertModelToEntity(model));
     }
 
@@ -60,11 +60,10 @@ public class PersonServiceImpl implements PersonService {
         if(person.isPresent()){
             personRepository.delete(person.get());
         }
-
     }
 
     @Override
-    public Person findByCpf(String cpf) {
+    public Optional<Person> findByCpf(String cpf) {
         return personRepository.findByCpf(cpf);
     }
 
