@@ -1,5 +1,7 @@
 package br.com.creative.devlet.model;
 
+import br.com.creative.devlet.enums.EnumState;
+
 import javax.validation.constraints.*;
 
 public class EnterpriseCreateUpdateModel {
@@ -29,8 +31,8 @@ public class EnterpriseCreateUpdateModel {
     @NotBlank(message = "City can't be empty")
     @Size(min = 2, max = 100, message = "City must be within 2 and 100 characters")
     private String city;
-    @NotBlank(message = "State can't be empty")
-    private String state;
+    @NotNull(message = "State can't be empty")
+    private EnumState state;
     @NotBlank(message = "Country can't be empty")
     private String country;
     @NotBlank(message = "Cnpj can't be empty")
@@ -76,8 +78,12 @@ public class EnterpriseCreateUpdateModel {
         return this.city;
     }
 
-    public String getState() {
+    public EnumState getState() {
         return this.state;
+    }
+
+    public void setState(EnumState state) {
+        this.state = state;
     }
 
     public String getCountry() {
@@ -130,10 +136,6 @@ public class EnterpriseCreateUpdateModel {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public void setCountry(String country) {

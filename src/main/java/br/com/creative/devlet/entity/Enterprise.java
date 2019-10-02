@@ -1,5 +1,7 @@
 package br.com.creative.devlet.entity;
 
+import br.com.creative.devlet.enums.EnumState;
+
 import javax.persistence.*;
 
 @Entity
@@ -34,7 +36,8 @@ public class Enterprise {
     private String city;
 
     @Column
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private EnumState state;
 
     @Column
     private String country;
@@ -70,6 +73,14 @@ public class Enterprise {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public EnumState getState() {
+        return state;
+    }
+
+    public void setState(EnumState state) {
+        this.state = state;
     }
 
     public String getEmail() {
@@ -118,14 +129,6 @@ public class Enterprise {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getCountry() {

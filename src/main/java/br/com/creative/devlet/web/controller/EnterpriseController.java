@@ -52,7 +52,7 @@ public class EnterpriseController extends BaseController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
         if (validation.hasErrors()) {
-            return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
+            return getErrorsResponse(validation);
         } else {
             try {
                 enterprise.setId(id);
