@@ -3,6 +3,8 @@ package br.com.creative.devlet.model;
 import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 public class EnterpriseCreateUpdateModel {

@@ -2,32 +2,45 @@ package br.com.creative.devlet.model;
 
 import br.com.creative.devlet.enums.EnumState;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.*;
+
 
 public class PersonModel {
     private Long id;
-
+    @NotBlank(message = "Name can't be empty")
+    @Size(min = 2, max = 50, message = "Name must be within 2 and 8 characters ")
     private String name;
-
+    @NotBlank(message = "Phone can't be empty ")
+    @Pattern(regexp = "^[(]\\d{2}[)]\\d{4,5}[-]\\d{4}$", message = "Phone must match the mask: (11)01111-1111")
     private String phone;
-
+    @NotBlank(message = "ZipCod can't be empty")
+    @Pattern(regexp = "^\\d{5}\\-\\d{3}$",message = "Zipcode must match the mask: 11.111-111")
     private String zipCode;
-
+    @NotBlank(message = "Street can't be empty")
+    @Size(min = 5, max = 150, message = "Street must be within 5 and 150 characters")
     private String street;
-
+    @NotNull(message = "Number can't be empty")
+    @Positive(message = "Number must be positive")
     private Integer number;
-
+    @NotBlank(message = "Neighborhood can't be empty")
+    @Size(min = 5, max = 80, message = "Neighborhood must be within 5 and 80 characters")
     private String neighborhood;
-
+    @NotBlank(message = "City can't be empty")
+    @Size(min = 2, max = 100, message = "City must be within 2 and 100 characters")
     private String city;
-
+    @NotNull(message = "State can't be empty")
+    @Enumerated(value = EnumType.STRING)
     private EnumState state;
-
+    @NotBlank(message = "Country can't be empty")
     private String country;
-
+    @NotBlank(message = "Cnpj can't be empty")
+    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}&",message = "Cpf must match the mask: 111.111.111-11")
     private String cpf;
-
+    @NotNull(message = "User_id can't be empty")
     private Long user_id;
-
+    @NotNull(message = "Enterprise_id can't be empty")
     private Long enterprise_id;
 
     public Long getId() {
