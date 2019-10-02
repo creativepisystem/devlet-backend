@@ -1,5 +1,6 @@
 package br.com.creative.devlet.model;
 
+import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.validation.constraints.*;
@@ -38,7 +39,7 @@ public class EnterpriseCreateUpdateModel {
     @NotBlank(message = "Cnpj can't be empty")
     private String cnpj;
     @NotNull(message = "Type can't be empty")
-    private String type;
+    private EnumEnterpriseType type;
     @NotNull(message = "Enable must be true or false")
     private Boolean enabled;
 
@@ -94,7 +95,7 @@ public class EnterpriseCreateUpdateModel {
         return this.cnpj;
     }
 
-    public String getType() {
+    public EnumEnterpriseType getType() {
         return this.type;
     }
 
@@ -146,7 +147,7 @@ public class EnterpriseCreateUpdateModel {
         this.cnpj = cnpj;
     }
 
-    public void setType(String type) {
+    public void setType(EnumEnterpriseType type) {
         this.type = type;
     }
 

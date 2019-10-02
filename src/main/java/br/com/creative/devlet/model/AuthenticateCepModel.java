@@ -1,7 +1,7 @@
 package br.com.creative.devlet.model;
 
 
-public class ViaCepModel {
+public class AuthenticateCepModel {
 
     private String cep;
     private String logradouro;
@@ -13,7 +13,7 @@ public class ViaCepModel {
     private Integer ibge;
     private Integer gia;
 
-    public ViaCepModel(){}
+    public AuthenticateCepModel(){}
 
     public String getCep() {
         return cep;
