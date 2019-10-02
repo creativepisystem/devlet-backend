@@ -37,6 +37,7 @@ public class EnterpriseCreateUpdateModel {
     @NotBlank(message = "Country can't be empty")
     private String country;
     @NotBlank(message = "Cnpj can't be empty")
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$",message = "CNPJ must match the mask: 11.111.111/1111-11")
     private String cnpj;
     @NotNull(message = "Type can't be empty")
     private EnumEnterpriseType type;

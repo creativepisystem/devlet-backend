@@ -34,7 +34,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Transactional
     @Override
     public Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException {
-        NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj()) != null);
+        NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj().replaceAll("[^0-9]","")) != null);
         integrationService.getAdressByZipCode(model.getZipCode());
         Enterprise entity = convertModelToEntity(model);
         entity.setCnpj(entity.getCnpj().replaceAll("[^0-9]",""));
