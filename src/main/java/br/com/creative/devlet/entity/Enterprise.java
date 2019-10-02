@@ -1,5 +1,6 @@
 package br.com.creative.devlet.entity;
 
+import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.persistence.*;
@@ -46,7 +47,8 @@ public class Enterprise {
     private String cnpj;
 
     @Column
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private EnumEnterpriseType type;
 
     @Column
     private Boolean enabled;
@@ -147,11 +149,11 @@ public class Enterprise {
         this.cnpj = cnpj;
     }
 
-    public String getType() {
+    public EnumEnterpriseType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(EnumEnterpriseType type) {
         this.type = type;
     }
 

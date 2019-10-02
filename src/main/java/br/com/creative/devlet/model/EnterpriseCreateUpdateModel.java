@@ -37,7 +37,7 @@ public class EnterpriseCreateUpdateModel {
     private String country;
     @NotBlank(message = "Cnpj can't be empty")
     private String cnpj;
-    @NotBlank(message = "Type can't be empty")
+    @NotNull(message = "Type can't be empty")
     private String type;
     @NotNull(message = "Enable must be true or false")
     private Boolean enabled;
