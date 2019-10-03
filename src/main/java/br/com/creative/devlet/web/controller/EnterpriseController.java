@@ -30,8 +30,22 @@ public class EnterpriseController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Enterprise> getEnterprise(@PathVariable Long id) {
+    public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable Long id) {
         Optional<Enterprise> enterprise = enterpriseService.findById(id);
+        return enterprise.map(e -> ResponseEntity.ok(e))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{cnpj}")
+    public ResponseEntity<Enterprise> getEnterpriseByCnpj(@PathVariable String cnpj){
+        Optional<Enterprise> enterprise = enterpriseService.findByCnpj(cnpj);
+        return enterprise.map(e -> ResponseEntity.ok(e))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Enterprise> getEnterpriseByEmail(@PathVariable String email){
+        Optional<Enterprise> enterprise = enterpriseService.findByEmail(email);
         return enterprise.map(e -> ResponseEntity.ok(e))
                 .orElse(ResponseEntity.notFound().build());
     }

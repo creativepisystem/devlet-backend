@@ -5,11 +5,11 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = EmptyValidator.class)
+@Constraint(validatedBy = CpfValidator.class)
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Empty {
-    String message() default "Field dont't can be empty";
+public @interface Cpf {
+    String message() default "Cpf don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

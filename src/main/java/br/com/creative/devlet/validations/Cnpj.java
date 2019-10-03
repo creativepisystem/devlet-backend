@@ -4,16 +4,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-@Empty
 @Documented
-@Constraint(validatedBy = LengthValidator.class)
-@Target(ElementType.FIELD)
+@Constraint(validatedBy = CnpjValidator.class)
+@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Length {
-    String message() default "Length of text is invalid";
+public @interface Cnpj {
+    String message() default "Cnpj don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    int min() default -1;
-    int max() default -1;
-
 }

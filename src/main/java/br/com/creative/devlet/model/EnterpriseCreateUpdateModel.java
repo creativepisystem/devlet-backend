@@ -35,6 +35,7 @@ public class EnterpriseCreateUpdateModel {
     @Size(min = 2, max = 100, message = "City must be within 2 and 100 characters")
     private String city;
     @NotNull(message = "State can't be empty")
+    @Enumerated(value = EnumType.STRING)
     private EnumState state;
     @NotBlank(message = "Country can't be empty")
     private String country;
@@ -42,6 +43,7 @@ public class EnterpriseCreateUpdateModel {
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$",message = "CNPJ must match the mask: 11.111.111/1111-11")
     private String cnpj;
     @NotNull(message = "Type can't be empty")
+    @Enumerated(value = EnumType.STRING)
     private EnumEnterpriseType type;
     @NotNull(message = "Enable must be true or false")
     private Boolean enabled;

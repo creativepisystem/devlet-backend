@@ -34,7 +34,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Transactional
     @Override
     public Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException {
-        NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj().replaceAll("[^0-9]","")) != null);
+        NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj().replaceAll("[^0-9]", "")).isPresent());
+        NON_UNIQUE_EMAIL_EXCEPTION.thrownIf(enterpriseRepository.findByEmail(model.getEmail()).isPresent());
         integrationService.getAdressByZipCode(model.getZipCode());
         Enterprise entity = convertModelToEntity(model);
         entity.setCnpj(entity.getCnpj().replaceAll("[^0-9]",""));
@@ -51,8 +52,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         model.setCnpj(model.getCnpj().replaceAll("[^0-9]",""));
         model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
         model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
-        Enterprise entity = enterpriseRepository.findByCnpj(model.getCnpj());
-        CNPJ_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity != null && !entity.getId().equals(model.getId()));
+        Optional<Enterprise> entity = enterpriseRepository.findByCnpj(model.getCnpj());
+        CNPJ_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity.isPresent() && !entity.get().getId().equals(model.getId()));
         return enterpriseRepository.save(convertModelToEntity(model));
     }
 
@@ -66,9 +67,12 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     }
 
     @Override
-    public Enterprise findByCnpj(String cnpj) {
+    public Optional<Enterprise> findByCnpj(String cnpj) {
         return enterpriseRepository.findByCnpj(cnpj);
     }
+
+    @Override
+    public Optional<Enterprise> findByEmail(String email){ return enterpriseRepository.findByEmail(email);}
 
     private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model) {
         Enterprise entity = new Enterprise();
