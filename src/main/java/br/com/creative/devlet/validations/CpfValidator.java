@@ -16,8 +16,7 @@ public class CpfValidator implements
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if(value != null && value instanceof  String){
 
-            String s = (String) value;
-            s.replaceAll("[./-]", "");
+            String s = ((String) value).replaceAll("[^0-9]", "");
             // considera-se erro CPF's formados por uma sequencia de numeros iguais
             if (s.equals("00000000000") ||
                     s.equals("11111111111") ||

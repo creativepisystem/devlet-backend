@@ -18,8 +18,7 @@ public class CnpjValidator implements
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if(value != null && value instanceof  String){
 
-            String s = (String) value;
-            s.replaceAll("[./-]", "");
+            String s = ((String) value).replaceAll("[^0-9]", "");
             // considera-se erro s's formados por uma sequencia de numeros iguais
             if (s.equals("00000000000000") || s.equals("11111111111111") ||
                     s.equals("22222222222222") || s.equals("33333333333333") ||

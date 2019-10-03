@@ -9,7 +9,6 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Cpf {
-    String value();
     String message() default "Cpf don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
