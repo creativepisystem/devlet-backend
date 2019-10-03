@@ -2,7 +2,6 @@ package br.com.creative.devlet.security.auth;
 
 import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public class TokenBasedAuthentication extends AbstractAuthenticationToken {
 
