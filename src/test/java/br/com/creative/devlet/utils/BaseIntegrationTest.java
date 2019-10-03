@@ -47,10 +47,10 @@ public abstract class BaseIntegrationTest {
     }
 
     public static PostgreSQLContainer postgreSQLContainer =
-            (PostgreSQLContainer) new PostgreSQLContainer("postgres:10.4")
-                    .withDatabaseName("appdb")
-                    .withUsername("siva")
-                    .withPassword("secret")
+            (PostgreSQLContainer) new PostgreSQLContainer("postgres:11")
+                    .withDatabaseName("devlet_test")
+                    .withUsername("devlet")
+                    .withPassword("devlet")
                     .withStartupTimeout(Duration.ofSeconds(600));
 
     static {

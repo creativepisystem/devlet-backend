@@ -14,7 +14,7 @@ public class MessageConfig {
 
     @Autowired
     private MessageSource messageSource;
-    
+
     public MessageConfig(){
 
     }
