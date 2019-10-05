@@ -38,9 +38,6 @@ public class AuthenticationController extends BaseController{
     TokenHelper tokenHelper;
 
     @Autowired
-    private HttpSession session;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired

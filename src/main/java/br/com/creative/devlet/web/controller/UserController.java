@@ -17,18 +17,14 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class UserController{
     @Autowired
     private UserService userService;
-    @Autowired
-    Logger log;
 
     @GetMapping("")
     public List<User> getUsers() {
-        log.info("process=get-users");
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        log.info("process=get-user, user_id={}", id);
         Optional<User> user = userService.getUserById(id);
         return user.map( u -> ResponseEntity.ok(u))
                    .orElse(ResponseEntity.notFound().build());
@@ -37,20 +33,17 @@ public class UserController{
     @PostMapping("")
     @ResponseStatus(CREATED)
     public User createUser(@RequestBody User user) {
-        log.info("process=create-user, user_email={}", user.getEmail());
         return userService.createUser(user);
     }
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        log.info("process=update-user, user_id={}", id);
         user.setId(id);
         return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
-        log.info("process=delete-user, user_id={}", id);
         userService.deleteUser(id);
     }
 
