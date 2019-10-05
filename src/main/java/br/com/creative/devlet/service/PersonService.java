@@ -2,7 +2,7 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Person;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.PersonModel;
+import br.com.creative.devlet.model.UserAndPersonModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +16,9 @@ public interface PersonService {
 
     List<Person> findAll();
 
-    Person create (PersonModel model) throws BussinessException;
+    Person create (UserAndPersonModel model) throws BussinessException;
 
-    Person update (PersonModel model) throws BussinessException;
+    Person update (UserAndPersonModel model) throws BussinessException;
 
     void delete (Long id);
 

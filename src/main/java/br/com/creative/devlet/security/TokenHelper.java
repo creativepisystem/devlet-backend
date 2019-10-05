@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class TokenHelper {
@@ -122,13 +123,13 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = userService.findByUsername(userDetails.getUsername());
+        Optional<User> user = userService.findByUsername(userDetails.getUsername());
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
         return (
                 username != null &&
                         username.equals(userDetails.getUsername()) &&
-                        !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
+                        !isCreatedBeforeLastPasswordReset(created, user.get().getLastPasswordResetDate())
         );
     }
 

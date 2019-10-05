@@ -13,5 +13,7 @@ create table enterprise (
     cnpj char(14) not null CONSTRAINT enterprise_cnpj_unique UNIQUE,
     type varchar(50) not null,
     enabled boolean not null,
-    primary key (id)
+    user_id serial,
+    primary key (id),
+    CONSTRAINT enterprise_user_foreign_key foreign key(user_id) references users
 );

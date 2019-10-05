@@ -2,6 +2,7 @@ package br.com.creative.devlet.model;
 
 import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
+import br.com.creative.devlet.validations.Cnpj;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -41,6 +42,7 @@ public class EnterpriseCreateUpdateModel {
     private String country;
     @NotBlank(message = "Cnpj can't be empty")
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$",message = "CNPJ must match the mask: 11.111.111/1111-11")
+    @Cnpj
     private String cnpj;
     @NotNull(message = "Type can't be empty")
     @Enumerated(value = EnumType.STRING)

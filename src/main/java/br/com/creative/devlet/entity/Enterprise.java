@@ -12,6 +12,13 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
+
+    @Column
+    private Long user_id;
+
     @Column
     private String name;
 
@@ -52,6 +59,22 @@ public class Enterprise {
 
     @Column
     private Boolean enabled;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
 
     public Long getId() {
         return id;

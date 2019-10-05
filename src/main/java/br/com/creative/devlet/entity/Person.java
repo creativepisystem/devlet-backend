@@ -7,9 +7,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "person")
 public class Person {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "id",referencedColumnName = "id")
+    private User user;
 
     @Column
     private String name;
@@ -42,11 +46,9 @@ public class Person {
     @Column(unique = true)
     private String cpf;
 
-    @Column
-    private Long user_id;
-
-    @Column
-    private Long enterprise_id;
+    @OneToMany
+    @JoinColumn(name = "enterprise_id",referencedColumnName = "id")
+    private Enterprise enterprise;
 
     public Long getId() {
         return id;
@@ -54,6 +56,22 @@ public class Person {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     public String getName() {
@@ -136,19 +154,5 @@ public class Person {
         this.cpf = cpf;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Long getEnterprise_id() {
-        return enterprise_id;
-    }
-
-    public void setEnterprise_id(Long enterprise_id) {
-        this.enterprise_id = enterprise_id;
-    }
 }

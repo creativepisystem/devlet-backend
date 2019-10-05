@@ -36,20 +36,6 @@ public class EnterpriseController extends BaseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{cnpj}")
-    public ResponseEntity<Enterprise> getEnterpriseByCnpj(@PathVariable String cnpj){
-        Optional<Enterprise> enterprise = enterpriseService.findByCnpj(cnpj);
-        return enterprise.map(e -> ResponseEntity.ok(e))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/{email}")
-    public ResponseEntity<Enterprise> getEnterpriseByEmail(@PathVariable String email){
-        Optional<Enterprise> enterprise = enterpriseService.findByEmail(email);
-        return enterprise.map(e -> ResponseEntity.ok(e))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping("")
     public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
         if (validation.hasErrors()) {

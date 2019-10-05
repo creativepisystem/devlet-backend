@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
-@Builder
 @Entity
 @Table(name="USERS")
 public class User {
@@ -37,6 +35,12 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
+    @OneToOne(mappedBy = "person")
+    private Person person;
+
+    @OneToOne(mappedBy = "enterprise")
+    private Enterprise enterprise;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -47,6 +51,22 @@ public class User {
         Timestamp now = new Timestamp(System.currentTimeMillis());
         this.setLastPasswordResetDate( now );
         this.password = password;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getPassword() {

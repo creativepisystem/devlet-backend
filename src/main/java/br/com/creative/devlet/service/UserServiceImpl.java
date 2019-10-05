@@ -1,8 +1,10 @@
 package br.com.creative.devlet.service;
 
+import br.com.creative.devlet.config.TimeProvider;
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.ChangePasswordModel;
+import br.com.creative.devlet.model.UserAndPersonModel;
 import br.com.creative.devlet.model.UserModel;
 import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.security.SecurityUser;
@@ -17,6 +19,9 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private PersonService personService;
 
     @Autowired
     private UserRepository userRepository;
@@ -37,9 +42,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public User createUser(UserAndPersonModel model) throws BussinessException{
+        PASSWORD_CONFIRMATION_DOESNT_MATCH_PASSWORD_EXCEPTION.thrownIf(!model.getConfirmPassword().equals(model.getPassword()));
+        NON_UNIQUE_EMAIL_EXCEPTION.thrownIf(userRepository.findByEmail(model.getEmail()).isPresent());
+        USER_ALREADY_EXISTS_EXCEPTION.thrownIf(userRepository.findByUsername(model.getUsername()).isPresent());
+        User entity = convertModelToEntity(model);
+        return userRepository.save(entity);
     }
 
     @Override
@@ -53,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -78,4 +88,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(entity);
     }
 
+    public User convertModelToEntity(UserAndPersonModel model){
+        User entity = new User();
+        if (model.getId() != null) {
+            entity.setId(model.getId());
+        }
+        entity.setUsername(model.getUsername());
+        entity.setEmail(model.getEmail());
+        entity.setPassword(model.getPassword());
+        entity.setEnabled(true);
+
+        return entity;
+    }
 }

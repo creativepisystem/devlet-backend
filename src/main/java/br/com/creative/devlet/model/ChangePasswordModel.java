@@ -2,15 +2,19 @@ package br.com.creative.devlet.model;
 
 import lombok.Builder;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Data
 @Builder
 public class ChangePasswordModel {
-    @NotEmpty
+    @NotBlank
     private String oldPassword;
-    @NotEmpty
+    @NotBlank
     @Size(min=8,max=14)
     private String newPassword;
-    @NotEmpty
+    @NotBlank
     @Size(min=8,max=14)
     private String confirmNewPassword;
 

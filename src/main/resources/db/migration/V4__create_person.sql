@@ -9,10 +9,9 @@ create table person(
     city varchar(100) not null,
     state varchar(80) not null,
     country varchar(80) not null,
-    cpf char(14) not null CONSTRAINT person_cpf_unique UNIQUE,
-    user_id int not null,
+    cpf char(11) not null CONSTRAINT person_cpf_unique UNIQUE,
     enterprise_id int not null,
     primary key(id),
-    CONSTRAINT person_user_foreign_key foreign key(user_id) references users(id),
+    CONSTRAINT person_user_foreign_key foreign key(id) references users(id),
     CONSTRAINT person_enterprise_foreign_key foreign key(enterprise_id) references enterprise(id)
 );
