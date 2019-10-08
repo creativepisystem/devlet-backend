@@ -1,12 +1,10 @@
 package br.com.creative.devlet.entity;
 
-import br.com.creative.devlet.compositekeys.TeamPrimaryKey;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@IdClass(TeamPrimaryKey.class)
 @Table(name = "team")
 public class Team {
 
@@ -14,11 +12,18 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Id
+    @Column
     private String name;
 
     @Column
     private Timestamp date;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "person_team",
+            joinColumns = @JoinColumn(name = "time_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+    private List<Person> people;
+
 
     public Long getId() {
         return id;
