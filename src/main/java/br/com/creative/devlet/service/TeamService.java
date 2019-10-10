@@ -1,6 +1,5 @@
 package br.com.creative.devlet.service;
 
-import br.com.creative.devlet.compositekeys.TeamPrimaryKey;
 import br.com.creative.devlet.entity.Team;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.TeamModel;
@@ -9,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TeamService {
-    Optional<Team> findById(TeamPrimaryKey teamPrimaryKey);
+    BussinessException TEAM_DOESNT_EXIST = new BussinessException("This team doesn't exist");
+
+    Optional<Team> findById(Long id);
 
     List<Team> findAll();
 
@@ -17,5 +18,5 @@ public interface TeamService {
 
     Team update(TeamModel model) throws BussinessException;
 
-    void delete(Long id, String name);
+    void delete(Long id);
 }

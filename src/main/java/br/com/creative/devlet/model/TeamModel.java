@@ -1,11 +1,11 @@
 package br.com.creative.devlet.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class TeamModel {
     private Long id;
     private String name;
-    private Timestamp date;
+    private Date date;
 
     public Long getId() {
         return id;
@@ -23,11 +23,11 @@ public class TeamModel {
         this.name = name;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

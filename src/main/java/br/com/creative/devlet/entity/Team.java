@@ -1,8 +1,7 @@
 package br.com.creative.devlet.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "team")
@@ -15,14 +14,15 @@ public class Team {
     @Column
     private String name;
 
-    @Column
-    private Timestamp date;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date")
+    private Date date;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "person_team",
-            joinColumns = @JoinColumn(name = "time_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
-    private List<Person> people;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "person_team",
+//            joinColumns = @JoinColumn(name = "time_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+//    private List<Person> people;
 
 
     public Long getId() {
@@ -41,11 +41,11 @@ public class Team {
         this.name = name;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

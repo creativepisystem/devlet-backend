@@ -5,7 +5,6 @@ import br.com.creative.devlet.enums.EnumResponseType;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
 import br.com.creative.devlet.service.EnterpriseService;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,6 @@ import java.util.Optional;
 public class EnterpriseController extends BaseController {
     @Autowired
     private EnterpriseService enterpriseService;
-    @Autowired
-    private Logger log;
 
     @GetMapping("")
     public List<Enterprise> getEnterprises() {
@@ -64,7 +61,7 @@ public class EnterpriseController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteEnterprise(@PathVariable Long id) {
         enterpriseService.delete(id);
     }
 

@@ -4,7 +4,6 @@ import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
-import br.com.creative.devlet.web.controller.EnterpriseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +49,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         if (enterprise.isPresent()) {
             enterpriseRepository.delete(enterprise.get());
         }
+
     }
 
     @Override
