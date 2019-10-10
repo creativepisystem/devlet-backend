@@ -47,6 +47,20 @@ public class TeamController extends BaseController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTeam(@PathVariable Long id, @Valid @RequestBody TeamModel team, BindingResult validation) {
+        if (validation.hasErrors()) {
+            return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
+        } else {
+            try {
+                team.setId(id);
+                return new ResponseEntity<>(teamService.update(team),HttpStatus.OK);
+            }catch (BussinessException e){
+                return getResponse(e.getMessage(),EnumResponseType.BUSSINESS_EXCEPTION);
+            }
+        }
+    }
+
     @DeleteMapping("/{id}")
     public void deleteTeam(@PathVariable Long id) {
         teamService.delete(id);

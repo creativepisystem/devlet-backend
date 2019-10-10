@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/enterprises")
+@RequestMapping("/api/enterprise")
 public class EnterpriseController extends BaseController {
     @Autowired
     private EnterpriseService enterpriseService;
