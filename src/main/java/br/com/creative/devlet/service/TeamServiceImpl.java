@@ -1,5 +1,6 @@
 package br.com.creative.devlet.service;
 
+import br.com.creative.devlet.entity.Person;
 import br.com.creative.devlet.entity.Team;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.TeamModel;
@@ -23,8 +24,24 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public Optional<Person> findPersonInTeam(Long person_id, Long team_id) {
+        return teamRepository.findPersonInTeam(person_id,team_id);
+    }
+
+    @Override
+    public List<Person> findPeopleInTeam(Long id) {
+        return teamRepository.findPeopleInTeam(id);
+    }
+
+    @Override
     public List<Team> findAll() {
         return (List<Team>) teamRepository.findAll();
+    }
+
+    @Override
+    public void insertPeopleIntoTeam(Long person_id, Long team_id) throws BussinessException {
+        PERSON_ALREADY_IN_TEAM_EXCEPTION.thrownIf(findPersonInTeam(person_id,team_id).isPresent());
+        teamRepository.insertPersonIntoTeam(person_id,team_id);
     }
 
     @Transactional

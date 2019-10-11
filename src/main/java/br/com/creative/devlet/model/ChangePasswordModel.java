@@ -1,18 +1,21 @@
 package br.com.creative.devlet.model;
 
-import br.com.creative.devlet.validations.Empty;
-import br.com.creative.devlet.validations.Length;
 import lombok.Builder;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
 public class ChangePasswordModel {
-    @Empty(message = "Old Password don't can be empty")
+    @NotBlank
     private String oldPassword;
-    @Length(min = 8,max = 14,message = "Password must have between 8 and 14 characters")
+    @NotBlank
+    @Size(min=8,max=14)
     private String newPassword;
-    @Length(min = 8,max = 14,message = "Password must have between 8 and 14 characters")
+    @NotBlank
+    @Size(min=8,max=14)
     private String confirmNewPassword;
 
     public ChangePasswordModel() {

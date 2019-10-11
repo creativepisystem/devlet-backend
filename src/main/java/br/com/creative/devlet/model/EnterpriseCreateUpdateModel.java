@@ -1,8 +1,11 @@
 package br.com.creative.devlet.model;
 
+import br.com.creative.devlet.enums.EnumEnterpriseType;
+import br.com.creative.devlet.enums.EnumState;
 import br.com.creative.devlet.validations.Cnpj;
-import br.com.creative.devlet.validations.Empty;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 public class EnterpriseCreateUpdateModel {
@@ -18,7 +21,7 @@ public class EnterpriseCreateUpdateModel {
     @Email(message = "Email must be a valid email")
     private String email;
     @NotBlank(message = "ZipCod can't be empty")
-    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\-\\d{3}$",message = "Zipcode must match the mask: 11.111-111")
+    @Pattern(regexp = "^\\d{5}\\-\\d{3}$",message = "Zipcode must match the mask: 11.111-111")
     private String zipCode;
     @NotBlank(message = "Street can't be empty")
     @Size(min = 5, max = 150, message = "Street must be within 5 and 150 characters")
@@ -32,16 +35,19 @@ public class EnterpriseCreateUpdateModel {
     @NotBlank(message = "City can't be empty")
     @Size(min = 2, max = 100, message = "City must be within 2 and 100 characters")
     private String city;
-    @NotBlank(message = "State can't be empty")
-    private String state;
+    @NotNull(message = "State can't be empty")
+    @Enumerated(value = EnumType.STRING)
+    private EnumState state;
     @NotBlank(message = "Country can't be empty")
     private String country;
     @NotBlank(message = "Cnpj can't be empty")
-    @Cnpj(message = "Cnpj must be a valid Cnpj")
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$",message = "CNPJ must match the mask: 11.111.111/1111-11")
+    @Cnpj
     private String cnpj;
-    @NotBlank(message = "Type can't be empty")
-    private String type;
-    @Empty(message = "Enable must be true or false")
+    @NotNull(message = "Type can't be empty")
+    @Enumerated(value = EnumType.STRING)
+    private EnumEnterpriseType type;
+    @NotNull(message = "Enable must be true or false")
     private Boolean enabled;
 
     public Long getId() {
@@ -53,7 +59,7 @@ public class EnterpriseCreateUpdateModel {
     }
 
     public String getPhone() {
-        return phone.replaceAll("[\\W]", "");
+        return phone;
     }
 
     public String getEmail() {
@@ -65,39 +71,43 @@ public class EnterpriseCreateUpdateModel {
     }
 
     public String getStreet() {
-        return street;
+        return this.street;
     }
 
     public Integer getNumber() {
-        return number;
+        return this.number;
     }
 
     public String getNeighborhood() {
-        return neighborhood;
+        return this.neighborhood;
     }
 
     public String getCity() {
-        return city;
+        return this.city;
     }
 
-    public String getState() {
-        return state;
+    public EnumState getState() {
+        return this.state;
+    }
+
+    public void setState(EnumState state) {
+        this.state = state;
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public String getCnpj() {
-        return cnpj.replaceAll("[\\W]", "");
+        return this.cnpj;
     }
 
-    public String getType() {
-        return type;
+    public EnumEnterpriseType getType() {
+        return this.type;
     }
 
     public Boolean getEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public void setId(Long id) {
@@ -136,10 +146,6 @@ public class EnterpriseCreateUpdateModel {
         this.city = city;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -148,7 +154,7 @@ public class EnterpriseCreateUpdateModel {
         this.cnpj = cnpj;
     }
 
-    public void setType(String type) {
+    public void setType(EnumEnterpriseType type) {
         this.type = type;
     }
 

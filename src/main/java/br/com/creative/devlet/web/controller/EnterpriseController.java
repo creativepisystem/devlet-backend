@@ -27,7 +27,7 @@ public class EnterpriseController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Enterprise> getEnterprise(@PathVariable Long id) {
+    public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable Long id) {
         Optional<Enterprise> enterprise = enterpriseService.findById(id);
         return enterprise.map(e -> ResponseEntity.ok(e))
                 .orElse(ResponseEntity.notFound().build());
@@ -49,7 +49,7 @@ public class EnterpriseController extends BaseController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
         if (validation.hasErrors()) {
-            return new ResponseEntity<>(validation.getFieldErrors(), HttpStatus.EXPECTATION_FAILED);
+            return getErrorsResponse(validation);
         } else {
             try {
                 enterprise.setId(id);

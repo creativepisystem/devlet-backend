@@ -5,8 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface EnterpriseRepository extends CrudRepository<Enterprise, Long> {
     @Query(value = "select * from enterprise where cnpj = ?1",nativeQuery = true)
-    Enterprise findByCnpj(String cnpj);
+    Optional<Enterprise> findByCnpj(String cnpj);
+    @Query(value = "select * from enterprise where email = ?1",nativeQuery = true)
+    Optional<Enterprise> findByEmail(String email);
 }

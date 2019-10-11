@@ -1,6 +1,8 @@
 package br.com.creative.devlet.web.controller;
 
 import br.com.creative.devlet.entity.User;
+import br.com.creative.devlet.exception.BussinessException;
+import br.com.creative.devlet.model.UserAndPersonModel;
 import br.com.creative.devlet.service.UserService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,9 @@ public class UserController{
 
     @PostMapping("")
     @ResponseStatus(CREATED)
-    public User createUser(@RequestBody User user) {
-        log.info("process=create-user, user_email={}", user.getEmail());
-        return userService.createUser(user);
+    public User createUser(@RequestBody UserAndPersonModel model) throws BussinessException {
+        log.info("process=create-user, user_email={}", model.getEmail());
+        return userService.createUser(model);
     }
 
     @PutMapping("/{id}")

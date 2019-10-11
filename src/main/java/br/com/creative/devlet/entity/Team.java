@@ -2,6 +2,7 @@ package br.com.creative.devlet.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "team")
@@ -18,11 +19,11 @@ public class Team {
     @Column(name = "date")
     private Date date;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "person_team",
-//            joinColumns = @JoinColumn(name = "time_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
-//    private List<Person> people;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "person_team",
+            joinColumns = @JoinColumn(name = "time_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))
+    private List<Person> people;
 
 
     public Long getId() {

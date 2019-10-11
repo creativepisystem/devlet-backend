@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Cnpj {
-    String message() default "Cnpj is invalid";
+    String message() default "Cnpj don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

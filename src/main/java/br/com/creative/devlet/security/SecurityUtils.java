@@ -8,12 +8,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class SecurityUtils {
     @Autowired
     private UserRepository userRepository;
 
-    public User getLoginUser()
+    public Optional<User> getLoginUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null)
