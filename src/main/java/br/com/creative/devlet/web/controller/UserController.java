@@ -23,8 +23,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class UserController extends  BaseController{
     @Autowired
     private UserService userService;
-    @Autowired
-    Logger log;
 
     @ResponseBody
     @GetMapping("")
@@ -88,7 +86,6 @@ public class UserController extends  BaseController{
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
-        log.info("process=delete-user, user_id={}", id);
 //        userService.deleteUser(id);
     }
 
