@@ -4,6 +4,7 @@ public enum EnumResponseType {
     BUSSINESS_EXCEPTION("Bussiness Exception"),
     UNKNOWN_ERROR("Unknown Error"),
     FIELD_ERROR("Field Error"),
+    CREATED("Created"),
     SUCCESS("Success");
 
     private String name;

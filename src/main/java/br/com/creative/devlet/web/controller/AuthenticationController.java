@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@SuppressWarnings("unused")
 @RestController
 @RequestMapping( value = "/api")
 public class AuthenticationController extends BaseController{

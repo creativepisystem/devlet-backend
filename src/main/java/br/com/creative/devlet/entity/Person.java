@@ -1,19 +1,20 @@
 package br.com.creative.devlet.entity;
 
-import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "enterprise")
-public class Enterprise {
+@Table(name = "person")
+public class Person {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id")
+    @MapsId(value = "id")
     private User user;
 
     @Column
@@ -21,9 +22,6 @@ public class Enterprise {
 
     @Column
     private String phone;
-
-    @Column(unique = true)
-    private String email;
 
     @Column(name = "zipcode")
     private String zipCode;
@@ -48,14 +46,19 @@ public class Enterprise {
     private String country;
 
     @Column(unique = true)
-    private String cnpj;
+    private String cpf;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private EnumEnterpriseType type;
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
+    private Enterprise enterprise;
 
-    @Column
-    private Boolean enabled;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;
@@ -65,13 +68,12 @@ public class Enterprise {
         this.user = user;
     }
 
-
-    public Long getId() {
-        return id;
+    public Enterprise getEnterprise() {
+        return enterprise;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     public String getName() {
@@ -88,22 +90,6 @@ public class Enterprise {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public EnumState getState() {
-        return state;
-    }
-
-    public void setState(EnumState state) {
-        this.state = state;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getZipCode() {
@@ -146,6 +132,14 @@ public class Enterprise {
         this.city = city;
     }
 
+    public EnumState getState() {
+        return state;
+    }
+
+    public void setState(EnumState state) {
+        this.state = state;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -154,27 +148,13 @@ public class Enterprise {
         this.country = country;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public EnumEnterpriseType getType() {
-        return type;
-    }
 
-    public void setType(EnumEnterpriseType type) {
-        this.type = type;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
 }
