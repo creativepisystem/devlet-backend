@@ -17,7 +17,7 @@ public interface UserService {
     BussinessException PASSWORD_CONFIRMATION_DOESNT_MATCH_PASSWORD_EXCEPTION = new BussinessException("The confirmation password doesn't match the password");
     BussinessException USER_ALREADY_EXISTS_EXCEPTION = new BussinessException("This username already exists");
 
-    Optional<User> getUserById(Long id);
+   UserModel getUserById(Long id) throws BussinessException;
 
     List<UserModel> getAllUsers();
 
@@ -29,7 +29,7 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    Optional<User> findByUsername(String username);
+    UserModel findByUsername(String username) throws BussinessException;
 
     UserModel getMe(SecurityUser user);
 

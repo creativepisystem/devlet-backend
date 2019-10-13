@@ -40,8 +40,16 @@ public class UserServiceImpl implements UserService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserModel getUserById(Long id) throws BussinessException {
+        Optional<User> user = userRepository.findById(id);
+        USER_NOT_FOUND_EXCEPTION.thrownIf(!user.isPresent());
+        return user.map(u->{
+            UserModel model = new UserModel();
+            model.setId(u.getId());
+            model.setEmail(u.getEmail());
+            model.setUsername(u.getUsername());
+            return model;
+        }).get();
     }
 
     @Override
@@ -117,8 +125,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserModel findByUsername(String username) throws BussinessException {
+        Optional<User> user = userRepository.findByUsername(username);
+        USER_NOT_FOUND_EXCEPTION.thrownIf(!user.isPresent());
+        return user.map(u->{
+            UserModel model = new UserModel();
+            model.setId(u.getId());
+            model.setEmail(u.getEmail());
+            model.setUsername(u.getUsername());
+            return model;
+        }).get();
     }
 
     @Override

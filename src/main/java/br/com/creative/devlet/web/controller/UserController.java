@@ -33,11 +33,12 @@ public class UserController extends  BaseController{
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        log.info("process=get-user, user_id={}", id);
-        Optional<User> user = userService.getUserById(id);
-        return user.map( u -> ResponseEntity.ok(u))
-                   .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        try{
+            return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+        }catch(BussinessException e){
+            return  getResponse(e.getMessage(),EnumResponseType.BUSSINESS_EXCEPTION);
+        }
     }
 
     @PostMapping("/pj")
@@ -88,7 +89,7 @@ public class UserController extends  BaseController{
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         log.info("process=delete-user, user_id={}", id);
-        userService.deleteUser(id);
+//        userService.deleteUser(id);
     }
 
 }
