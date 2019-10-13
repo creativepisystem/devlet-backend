@@ -13,11 +13,8 @@ public class Enterprise {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Column
-    private Long user_id;
 
     @Column
     private String name;
@@ -68,13 +65,6 @@ public class Enterprise {
         this.user = user;
     }
 
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
 
     public Long getId() {
         return id;

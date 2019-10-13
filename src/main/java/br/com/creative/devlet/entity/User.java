@@ -1,5 +1,6 @@
 package br.com.creative.devlet.entity;
 
+import br.com.creative.devlet.enums.EnumRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "username", unique = true)
@@ -35,17 +37,14 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne(mappedBy = "user")
     private Person person;
 
-    @OneToOne(mappedBy = "enterprise")
+    @OneToOne(mappedBy = "user")
     private Enterprise enterprise;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private EnumRole role;
 
     public void setPassword(String password) {
         Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -121,11 +120,11 @@ public class User {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public EnumRole getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRole(EnumRole role) {
+        this.role = role;
     }
 }

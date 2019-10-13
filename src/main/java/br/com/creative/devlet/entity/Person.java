@@ -9,10 +9,12 @@ import javax.persistence.*;
 public class Person {
 
     @Id
+    @Column(name = "id")
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id",referencedColumnName = "id")
+    @JoinColumn(name = "id")
+    @MapsId(value = "id")
     private User user;
 
     @Column
@@ -46,8 +48,8 @@ public class Person {
     @Column(unique = true)
     private String cpf;
 
-    @OneToMany
-    @JoinColumn(name = "enterprise_id",referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
 
     public Long getId() {

@@ -59,18 +59,18 @@ public class PersonServiceImplTest {
         personModel.setUsername(dataFactory.getName());
         personModel.setEmail(dataFactory.getEmailAddress());
         personModel.setPassword("001002003");
-        personModel.setName(dataFactory.getName());
-        personModel.setEnterprise_id(enterpriseService.findById(1L).get().getId());
-        personModel.setPhone("("+dataFactory.getNumberText(2)+")"+dataFactory.getNumberText(4)+"-"+dataFactory.getNumberText(4));
-        personModel.setZipCode(zipCode);
-        personModel.setStreet(dataFactory.getStreetName());
-        personModel.setNumber(dataFactory.getNumberUpTo(20000));
-        personModel.setNeighborhood(dataFactory.getAddress());
-        personModel.setCity(dataFactory.getCity());
-        personModel.setState(EnumState.SP);
-        personModel.setCountry("brasil");
-        personModel.setCpf(cpf);
-        personService.create(personModel);
+//        personModel.setName(dataFactory.getName());
+//        personModel.setEnterprise_id(enterpriseService.findById(1L).get().getId());
+//        personModel.setPhone("("+dataFactory.getNumberText(2)+")"+dataFactory.getNumberText(4)+"-"+dataFactory.getNumberText(4));
+//        personModel.setZipCode(zipCode);
+//        personModel.setStreet(dataFactory.getStreetName());
+//        personModel.setNumber(dataFactory.getNumberUpTo(20000));
+//        personModel.setNeighborhood(dataFactory.getAddress());
+//        personModel.setCity(dataFactory.getCity());
+//        personModel.setState(EnumState.SP);
+//        personModel.setCountry("brasil");
+//        personModel.setCpf(cpf);
+//        personService.create(personModel);
     }
 
     @Test

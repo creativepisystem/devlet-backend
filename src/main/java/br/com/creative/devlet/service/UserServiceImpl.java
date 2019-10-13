@@ -1,13 +1,16 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.config.TimeProvider;
+import br.com.creative.devlet.entity.Enterprise;
+import br.com.creative.devlet.entity.Person;
 import br.com.creative.devlet.entity.User;
+import br.com.creative.devlet.enums.EnumEnterpriseType;
+import br.com.creative.devlet.enums.EnumRole;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.ChangePasswordModel;
-import br.com.creative.devlet.model.UserAndPersonModel;
-import br.com.creative.devlet.model.UserModel;
+import br.com.creative.devlet.model.*;
 import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.security.SecurityUser;
+import br.com.creative.devlet.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -23,6 +28,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private EnterpriseService enterpriseService;
     @Autowired
     private UserRepository userRepository;
 
@@ -38,23 +45,70 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserModel> getAllUsers() {
+        return userRepository.findAll().stream().map(user->{
+            UserModel model = new UserModel();
+            model.setId(user.getId());
+            model.setEmail(user.getEmail());
+            model.setUsername(user.getUsername());
+            return model;
+        }).collect(Collectors.toList());
     }
 
     @Transactional
     @Override
-    public User createUser(UserAndPersonModel model) throws BussinessException{
-        PASSWORD_CONFIRMATION_DOESNT_MATCH_PASSWORD_EXCEPTION.thrownIf(!model.getConfirmPassword().equals(model.getPassword()));
-        NON_UNIQUE_EMAIL_EXCEPTION.thrownIf(userRepository.findByEmail(model.getEmail()).isPresent());
-        USER_ALREADY_EXISTS_EXCEPTION.thrownIf(userRepository.findByUsername(model.getUsername()).isPresent());
-        User entity = convertModelToEntity(model);
-        return userRepository.save(entity);
+    public void createUserPF(PostUserPFModel model) throws BussinessException {
+        verifyUser(model);
+        PersonService.NON_UNIQUE_CPF_EXCEPTION
+                .thrownIf(personService.findByCpf(model.getCpf()).isPresent());
+        Person person = new Person();
+        person.setName(model.getName());
+        person.setCpf(Utils.removeMask(model.getCpf()));
+        User user = convertPostUserModelToEntity(model);
+        user.setRole(EnumRole.DEVELOPER);
+        user = userRepository.save(user);
+        person.setId(user.getId());
+        person.setUser(user);
+        personService.save(person);
+
+    }
+
+    private User convertPostUserModelToEntity(PostUserModel model){
+        User user = new User();
+        user.setEmail(model.getEmail());
+        user.setEnabled(false);
+        user.setUsername(model.getUsername());
+        user.setName(model.getName());
+        user.setPassword(passwordEncoder.encode(model.getPassword()));
+        return user;
+    }
+    @Transactional
+    @Override
+    public void createUserPJ(PostUserPJModel model) throws BussinessException {
+        verifyUser(model);
+        EnterpriseService.NON_UNIQUE_CNPJ_EXCEPTION
+                .thrownIf(enterpriseService.findByCnpj(model.getCnpj()).isPresent());
+        Enterprise enterprise = new Enterprise();
+        enterprise.setName(model.getName());
+        enterprise.setCnpj(Utils.removeMask(model.getCnpj()));
+        enterprise.setType(EnumEnterpriseType.DEVELOPER);
+        enterprise.setEnabled(false);
+        User user = convertPostUserModelToEntity(model);
+        user.setRole(EnumRole.ADMIN);
+        userRepository.save(user);
+        enterprise.setUser(user);
+        enterpriseService.save(enterprise);
     }
 
     @Override
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public User updateUser(PostUserModel user) {
+        return null;
+    }
+
+    private void verifyUser(PostUserModel model) throws BussinessException {
+        PASSWORD_CONFIRMATION_DOESNT_MATCH_PASSWORD_EXCEPTION.thrownIf(!model.getConfirmPassword().equals(model.getPassword()));
+        NON_UNIQUE_EMAIL_EXCEPTION.thrownIf(userRepository.findByEmail(model.getEmail()).isPresent());
+        USER_ALREADY_EXISTS_EXCEPTION.thrownIf(userRepository.findByUsername(model.getUsername()).isPresent());
     }
 
     @Override
@@ -90,6 +144,7 @@ public class UserServiceImpl implements UserService {
 
     public User convertModelToEntity(UserAndPersonModel model){
         User entity = new User();
+
         if (model.getId() != null) {
             entity.setId(model.getId());
         }

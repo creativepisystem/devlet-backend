@@ -1,8 +1,14 @@
 package br.com.creative.devlet.security.auth;
 
+import br.com.creative.devlet.exception.AuthException;
 import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -36,15 +42,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (authToken != null) {
             username = tokenHelper.getUsernameFromToken(authToken);
             if (username != null) {
-                SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username);
-
-                if (tokenHelper.validateToken(authToken, securityUser)) {
-                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, securityUser);
+                SecurityUser userDetails =(SecurityUser) userDetailsService.loadUserByUsername(username);
+                if (tokenHelper.validateToken(authToken, userDetails)) {
+                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, userDetails);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }
         chain.doFilter(request, response);
     }
-
 }

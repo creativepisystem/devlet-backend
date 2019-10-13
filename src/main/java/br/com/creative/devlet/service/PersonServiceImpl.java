@@ -30,29 +30,18 @@ public class PersonServiceImpl implements PersonService {
         return (List<Person>) personRepository.findAll();
     }
 
-    @Transactional
-    @Override
-    public Person create(UserAndPersonModel model) throws BussinessException {
-        NON_UNIQUE_CPF_EXCEPTION.thrownIf(personRepository.findByCpf(model.getCpf().replaceAll("[^0-9]", "")).isPresent());
-        integrationService.getAdressByZipCode(model.getZipCode());
-        Person entity = convertModelToEntity(model);
-        entity.setCpf(entity.getCpf().replaceAll("[^0-9]",""));
-        entity.setZipCode(entity.getZipCode().replaceAll("[^0-9]",""));
-        entity.setPhone(entity.getPhone().replaceAll("[^0-9]",""));
 
-        return personRepository.save(entity);
-    }
 
-    @Transactional
-    @Override
-    public Person update(UserAndPersonModel model) throws BussinessException {
-        model.setCpf(model.getCpf().replaceAll("[^0-9]",""));
-        model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
-        model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
-        Optional<Person> entity = personRepository.findByCpf(model.getCpf());
-        CPF_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity.isPresent() && !entity.get().getId().equals(model.getId()));
-        return personRepository.save(convertModelToEntity(model));
-    }
+//    @Transactional
+//    @Override
+//    public Person update(UserAndPersonModel model) throws BussinessException {
+//        model.setCpf(model.getCpf().replaceAll("[^0-9]",""));
+//        model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
+//        model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
+//        Optional<Person> entity = personRepository.findByCpf(model.getCpf());
+//        CPF_DOES_NOT_MATCH_ID_EXCEPTION.thrownIf(entity.isPresent() && !entity.get().getId().equals(model.getId()));
+//        return personRepository.save(convertModelToEntity(model));
+//    }
 
     @Transactional
     @Override
@@ -68,22 +57,27 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findByCpf(cpf);
     }
 
-    private Person convertModelToEntity(UserAndPersonModel model) {
-        Person entity = new Person();
-        if (model.getId() != null) {
-            entity.setId(model.getId());
-        }
-        entity.setCity(model.getCity());
-        entity.setCpf(model.getCpf());
-        entity.setCountry(model.getCountry());
-        entity.setName(model.getName());
-        entity.setNeighborhood(model.getNeighborhood());
-        entity.setNumber(model.getNumber());
-        entity.setPhone(model.getPhone());
-        entity.setState(model.getState());
-        entity.setStreet(model.getStreet());
-        entity.setZipCode(model.getZipCode());
-        entity.setEnterprise_id(model.getEnterprise_id());
-        return entity;
+    @Override
+    public void save(Person person) {
+        personRepository.save(person);
     }
+
+//    private Person convertModelToEntity(UserAndPersonModel model) {
+//        Person entity = new Person();
+//        if (model.getId() != null) {
+//            entity.setId(model.getId());
+//        }
+//        entity.setCity(model.getCity());
+//        entity.setCpf(model.getCpf());
+//        entity.setCountry(model.getCountry());
+//        entity.setName(model.getName());
+//        entity.setNeighborhood(model.getNeighborhood());
+//        entity.setNumber(model.getNumber());
+//        entity.setPhone(model.getPhone());
+//        entity.setState(model.getState());
+//        entity.setStreet(model.getStreet());
+//        entity.setZipCode(model.getZipCode());
+//        entity.setEnterprise_id(model.getEnterprise_id());
+//        return entity;
+//    }
 }

@@ -16,11 +16,12 @@ public interface PersonService {
 
     List<Person> findAll();
 
-    Person create (UserAndPersonModel model) throws BussinessException;
+    //Person create (UserAndPersonModel model) throws BussinessException;
 
-    Person update (UserAndPersonModel model) throws BussinessException;
+    //Person update (UserAndPersonModel model) throws BussinessException;
 
     void delete (Long id);
 
     Optional<Person> findByCpf(String cpf);
+    void save(Person person);
 }

@@ -28,5 +28,6 @@ public interface EnterpriseService {
 
     Optional<Enterprise> findByEmail(String email);
 
+    void save( Enterprise enterprise);
 
 }

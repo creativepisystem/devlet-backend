@@ -2,9 +2,7 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.ChangePasswordModel;
-import br.com.creative.devlet.model.UserAndPersonModel;
-import br.com.creative.devlet.model.UserModel;
+import br.com.creative.devlet.model.*;
 import br.com.creative.devlet.security.SecurityUser;
 
 import java.util.List;
@@ -21,11 +19,13 @@ public interface UserService {
 
     Optional<User> getUserById(Long id);
 
-    List<User> getAllUsers();
+    List<UserModel> getAllUsers();
 
-    User createUser(UserAndPersonModel model) throws BussinessException;
+    void createUserPF(PostUserPFModel model) throws BussinessException;
 
-    User updateUser(User user);
+    void createUserPJ(PostUserPJModel model) throws BussinessException;
+
+    User updateUser(PostUserModel user);
 
     void deleteUser(Long userId);
 

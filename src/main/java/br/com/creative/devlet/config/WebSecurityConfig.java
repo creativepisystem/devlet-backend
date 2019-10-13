@@ -25,19 +25,18 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+    @Autowired
+    TokenHelper tokenHelper;
     @Autowired
     private UserDetailsServiceImpl jwtUserDetailsService;
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    @Autowired
-    TokenHelper tokenHelper;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     @Override
@@ -46,27 +45,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
-        auth.userDetailsService( jwtUserDetailsService )
-            .passwordEncoder( passwordEncoder() );
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder());
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
-            .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
-            .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
-            //.antMatchers(HttpMethod.POST,"/users").hasAnyRole("USER", "ADMIN")
-            //.anyRequest().authenticated()
-            .and()
-            .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
+                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
+                .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
+                .authorizeRequests()
+                .antMatchers("/auth/**").permitAll()
+                .and()
+                .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class)
+                .authorizeRequests()
+                //.antMatchers(HttpMethod.POST,"/users").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated();
+
         http.csrf().disable();
+
     }
-
-
     @Override
     public void configure(WebSecurity web) {
         // TokenAuthenticationFilter will ignore the below paths
@@ -76,4 +76,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         );
 
     }
+
 }
