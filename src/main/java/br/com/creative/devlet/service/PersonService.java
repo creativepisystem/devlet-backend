@@ -7,6 +7,7 @@ import br.com.creative.devlet.model.UserAndPersonModel;
 import java.util.List;
 import java.util.Optional;
 
+
 public interface PersonService {
 
     BussinessException NON_UNIQUE_CPF_EXCEPTION = new BussinessException("There is a matching Cpf in use");
@@ -16,9 +17,9 @@ public interface PersonService {
 
     List<Person> findAll();
 
-    Person create (UserAndPersonModel model) throws BussinessException;
+//    Person create (UserAndPersonModel model) throws BussinessException;
 
-    Person update (UserAndPersonModel model) throws BussinessException;
+//    Person update (UserAndPersonModel model) throws BussinessException;
 
     void delete (Long id);
 

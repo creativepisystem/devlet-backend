@@ -35,10 +35,11 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne(mappedBy = "user")
     private Person person;
 
-    @OneToOne(mappedBy = "enterprise")
+//    @OneToOne(mappedBy = "enterprise")
+    @Transient
     private Enterprise enterprise;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

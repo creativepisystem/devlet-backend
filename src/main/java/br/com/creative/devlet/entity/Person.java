@@ -3,6 +3,8 @@ package br.com.creative.devlet.entity;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "person")
@@ -11,8 +13,8 @@ public class Person {
     @Id
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "id",referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private User user;
 
     @Column
@@ -46,9 +48,9 @@ public class Person {
     @Column(unique = true)
     private String cpf;
 
-    @OneToMany
-    @JoinColumn(name = "enterprise_id",referencedColumnName = "id")
-    private Enterprise enterprise;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "enterprise_id")
+    private List<Enterprise> enterprise;
 
     public Long getId() {
         return id;
@@ -66,11 +68,11 @@ public class Person {
         this.user = user;
     }
 
-    public Enterprise getEnterprise() {
+    public List<Enterprise> getEnterprise(Optional<Enterprise> byId) {
         return enterprise;
     }
 
-    public void setEnterprise(Enterprise enterprise) {
+    public void setEnterprise(List<Enterprise> enterprise) {
         this.enterprise = enterprise;
     }
 
@@ -153,6 +155,5 @@ public class Person {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
 
 }

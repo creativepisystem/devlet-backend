@@ -3,14 +3,14 @@ package br.com.creative.devlet.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Date;
+
 
 public class TeamModel {
     private Long id;
     @NotBlank(message = "Name can't be empty")
     @Size(min = 3, max = 50, message = "Name must be within 3 and 50 characters")
     private String name;
-    private Date date;
+    private Long idEnterprise;
 
     public Long getId() {
         return id;
@@ -28,11 +28,11 @@ public class TeamModel {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public Long getIdEnterprise() {
+        return idEnterprise;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setIdEnterprise(Long idEnterprise) {
+        this.idEnterprise = idEnterprise;
     }
 }

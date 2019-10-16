@@ -3,6 +3,7 @@ package br.com.creative.devlet.service;
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.GetEnterpriseModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
 import br.com.creative.devlet.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,8 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         entity.setZipCode(model.getZipCode());
         return entity;
     }
+
+
     /**
      public Enterprise convertEntityToModel(Enterprise entity){
      EnterpriseCreateUpdateModel model = new EnterpriseCreateUpdateModel();

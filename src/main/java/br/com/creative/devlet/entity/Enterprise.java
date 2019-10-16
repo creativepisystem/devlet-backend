@@ -4,6 +4,7 @@ import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "enterprise")
@@ -12,8 +13,9 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    //    @OneToOne
+//    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @Transient
     private User user;
 
     @Column
@@ -59,6 +61,13 @@ public class Enterprise {
 
     @Column
     private Boolean enabled;
+
+    public Enterprise(Long id) {
+        this.id = id;
+    }
+
+    public Enterprise() {
+    }
 
     public User getUser() {
         return user;

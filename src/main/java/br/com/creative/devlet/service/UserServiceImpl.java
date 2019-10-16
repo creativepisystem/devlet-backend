@@ -20,8 +20,8 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private PersonService personService;
+//    @Autowired
+//    private PersonService personService;
 
     @Autowired
     private UserRepository userRepository;
