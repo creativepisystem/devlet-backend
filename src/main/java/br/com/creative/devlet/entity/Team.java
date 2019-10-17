@@ -1,7 +1,5 @@
 package br.com.creative.devlet.entity;
 
-import br.com.creative.devlet.model.GetEnterpriseModel;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +16,7 @@ public class Team {
     private String name;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date", columnDefinition = "default")
+    @Column(name = "date", insertable = false, columnDefinition = "timestamp with time zone default current_timestamp")
     private Date date;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

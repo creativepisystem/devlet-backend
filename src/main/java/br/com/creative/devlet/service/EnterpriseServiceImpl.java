@@ -100,6 +100,14 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         return entity;
     }
 
+    @Override
+    public GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity) {
+        GetEnterpriseModel model = new GetEnterpriseModel();
+        model.setId(entity.getId());
+        model.setName(entity.getName());
+        model.setType(entity.getType());
+        return model;
+    }
 
     /**
      public Enterprise convertEntityToModel(Enterprise entity){

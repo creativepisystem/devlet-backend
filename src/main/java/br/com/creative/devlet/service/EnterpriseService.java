@@ -3,6 +3,7 @@ package br.com.creative.devlet.service;
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.GetEnterpriseModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,5 +29,5 @@ public interface EnterpriseService {
 
     Optional<Enterprise> findByEmail(String email);
 
-
+    GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity);
 }

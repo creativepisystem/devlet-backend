@@ -42,7 +42,7 @@ public class TeamController extends BaseController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("")
     public ResponseEntity<?> createTeam(@Valid @RequestBody TeamModel team, BindingResult validation, @AuthenticationPrincipal SecurityUser user) {
         if (validation.hasErrors()) {

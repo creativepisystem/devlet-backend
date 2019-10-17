@@ -69,8 +69,8 @@ public class TeamServiceImpl implements TeamService {
     @Transactional
     @Override
     public Team create(TeamModel model, SecurityUser user) throws BussinessException {
-        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(
-                !model.getIdEnterprise().equals(user.getEnterprise().getId()));
+//        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(
+//                !model.getIdEnterprise().equals(user.getEnterprise().getId()));
         return teamRepository.save(convertModelToEntity(model));
     }
 
@@ -134,15 +134,8 @@ public class TeamServiceImpl implements TeamService {
             personModel.setName(person.getName());
             return personModel;
         }).collect(Collectors.toList()));
-        model.setEnterprise(convertEntityToGetEnterpriseModel(entity.getEnterprise()));
+        model.setEnterprise(enterpriseService.convertEntityToGetEnterpriseModel(entity.getEnterprise()));
         return model;
     }
 
-    private GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity) {
-        GetEnterpriseModel model = new GetEnterpriseModel();
-        model.setId(entity.getId());
-        model.setName(entity.getName());
-        model.setType(entity.getType());
-        return model;
-    }
 }
