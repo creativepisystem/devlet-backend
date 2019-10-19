@@ -79,6 +79,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Override
     public Optional<Enterprise> findByEmail(String email){ return enterpriseRepository.findByEmail(email);}
 
+    @Override
+    public void save(Enterprise enterprise) {
+        enterpriseRepository.save(enterprise);
+    }
+
     private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model) {
         Enterprise entity = new Enterprise();
         if (model.getId() != null) {

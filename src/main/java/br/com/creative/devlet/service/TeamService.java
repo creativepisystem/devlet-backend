@@ -6,11 +6,8 @@ import br.com.creative.devlet.model.GetTeamModel;
 import br.com.creative.devlet.model.PersonToTeamModel;
 import br.com.creative.devlet.model.TeamModel;
 import br.com.creative.devlet.security.SecurityUser;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindingResult;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TeamService {
     BussinessException PERSON_DOESNT_EXIST_EXCEPTION = new BussinessException("The selected person doesn't exist");

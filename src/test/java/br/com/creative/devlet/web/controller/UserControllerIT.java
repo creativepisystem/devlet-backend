@@ -1,21 +1,6 @@
 package br.com.creative.devlet.web.controller;
 
-import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.utils.BaseIntegrationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
 
 public class UserControllerIT extends BaseIntegrationTest {
 //

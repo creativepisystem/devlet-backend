@@ -30,4 +30,7 @@ public interface EnterpriseService {
     Optional<Enterprise> findByEmail(String email);
 
     GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity);
+
+    void save( Enterprise enterprise);
+
 }

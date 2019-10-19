@@ -36,15 +36,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if (authToken != null) {
             username = tokenHelper.getUsernameFromToken(authToken);
             if (username != null) {
-                SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username);
-
-                if (tokenHelper.validateToken(authToken, securityUser)) {
-                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, securityUser);
+                SecurityUser userDetails =(SecurityUser) userDetailsService.loadUserByUsername(username);
+                if (tokenHelper.validateToken(authToken, userDetails)) {
+                    TokenBasedAuthentication authentication = new TokenBasedAuthentication(authToken, userDetails);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }
         chain.doFilter(request, response);
     }
-
 }

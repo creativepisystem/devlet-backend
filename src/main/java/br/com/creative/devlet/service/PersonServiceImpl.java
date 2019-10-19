@@ -1,8 +1,6 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Person;
-import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.UserAndPersonModel;
 import br.com.creative.devlet.repo.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,19 +32,6 @@ public class PersonServiceImpl implements PersonService {
 
 //    @Transactional
 //    @Override
-//    public Person create(UserAndPersonModel model) throws BussinessException {
-//        NON_UNIQUE_CPF_EXCEPTION.thrownIf(personRepository.findByCpf(model.getCpf().replaceAll("[^0-9]", "")).isPresent());
-//        integrationService.getAdressByZipCode(model.getZipCode());
-//        Person entity = convertModelToEntity(model);
-//        entity.setCpf(entity.getCpf().replaceAll("[^0-9]",""));
-//        entity.setZipCode(entity.getZipCode().replaceAll("[^0-9]",""));
-//        entity.setPhone(entity.getPhone().replaceAll("[^0-9]",""));
-//
-//        return personRepository.save(entity);
-//    }
-
-//    @Transactional
-//    @Override
 //    public Person update(UserAndPersonModel model) throws BussinessException {
 //        model.setCpf(model.getCpf().replaceAll("[^0-9]",""));
 //        model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
@@ -69,6 +54,13 @@ public class PersonServiceImpl implements PersonService {
     public Optional<Person> findByCpf(String cpf) {
         return personRepository.findByCpf(cpf);
     }
+
+
+    @Override
+    public void save(Person person) {
+        personRepository.save(person);
+    }
+
 
 //    private Person convertModelToEntity(UserAndPersonModel model) {
 //        Person entity = new Person();

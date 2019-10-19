@@ -2,13 +2,10 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.User;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.ChangePasswordModel;
-import br.com.creative.devlet.model.UserAndPersonModel;
-import br.com.creative.devlet.model.UserModel;
+import br.com.creative.devlet.model.*;
 import br.com.creative.devlet.security.SecurityUser;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface UserService {
@@ -19,17 +16,19 @@ public interface UserService {
     BussinessException PASSWORD_CONFIRMATION_DOESNT_MATCH_PASSWORD_EXCEPTION = new BussinessException("The confirmation password doesn't match the password");
     BussinessException USER_ALREADY_EXISTS_EXCEPTION = new BussinessException("This username already exists");
 
-    Optional<User> getUserById(Long id);
+   UserModel getUserById(Long id) throws BussinessException;
 
-    List<User> getAllUsers();
+    List<UserModel> getAllUsers();
 
-    User createUser(UserAndPersonModel model) throws BussinessException;
+    void createUserPF(PostUserPFModel model) throws BussinessException;
 
-    User updateUser(User user);
+    void createUserPJ(PostUserPJModel model) throws BussinessException;
+
+    User updateUser(PostUserModel user);
 
     void deleteUser(Long userId);
 
-    Optional<User> findByUsername(String username);
+    UserModel findByUsername(String username) throws BussinessException;
 
     UserModel getMe(SecurityUser user);
 

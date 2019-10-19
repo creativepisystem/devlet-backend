@@ -1,7 +1,6 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.User;
-import br.com.creative.devlet.model.UserAndPersonModel;
 import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.security.SecurityUser;
 import lombok.extern.slf4j.Slf4j;

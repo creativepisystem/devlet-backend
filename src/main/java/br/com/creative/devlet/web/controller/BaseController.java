@@ -36,6 +36,8 @@ public class BaseController {
             case BUSSINESS_EXCEPTION:
             case FIELD_ERROR:
                 return HttpStatus.EXPECTATION_FAILED;
+            case CREATED:
+                return HttpStatus.CREATED;
             case UNKNOWN_ERROR:
                 return HttpStatus.INTERNAL_SERVER_ERROR;
             case SUCCESS:

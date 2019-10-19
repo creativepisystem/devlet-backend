@@ -1,10 +1,12 @@
 package br.com.creative.devlet.service;
 
-import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.entity.Person;
 import br.com.creative.devlet.entity.Team;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.*;
+import br.com.creative.devlet.model.GetPersonModel;
+import br.com.creative.devlet.model.GetTeamModel;
+import br.com.creative.devlet.model.PersonToTeamModel;
+import br.com.creative.devlet.model.TeamModel;
 import br.com.creative.devlet.repo.TeamRepository;
 import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class TeamServiceImpl implements TeamService {
         TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf( idPerson < 1 || idTeam < 1);
         Optional<Person> person = personService.findById(idPerson);
         PERSON_DOESNT_EXIST_EXCEPTION.thrownIf(!person.isPresent());
-        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(person.get().getEnterprise(enterpriseService.findById(user.getEnterprise().getId())).isEmpty());
+        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().equals(user.getEnterprise()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
         TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().equals(user.getEnterprise()));
@@ -100,7 +102,7 @@ public class TeamServiceImpl implements TeamService {
         TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf( idPerson < 1 || idTeam < 1);
         Optional<Person> person = personService.findById(idPerson);
         PERSON_DOESNT_EXIST_EXCEPTION.thrownIf(!person.isPresent());
-        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(person.get().getEnterprise(enterpriseService.findById(user.getEnterprise().getId())).isEmpty());
+        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().equals(user.getEnterprise()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
         TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().equals(user.getEnterprise()));
@@ -138,5 +140,11 @@ public class TeamServiceImpl implements TeamService {
         model.setEnterprise(enterpriseService.convertEntityToGetEnterpriseModel(entity.getEnterprise()));
         return model;
     }
+/*TODO
+  check security user parameters (X)
 
+  revise team service bossiness exceptions (X)
+
+  test variables
+ */
 }
