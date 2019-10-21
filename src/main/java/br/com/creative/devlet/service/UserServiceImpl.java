@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public UserModel getUserById(Long id) throws BussinessException {
         Optional<User> user = userRepository.findById(id);
         USER_NOT_FOUND_EXCEPTION.thrownIf(!user.isPresent());
-        return user.map(u->{
+        return user.map(u -> {
             UserModel model = new UserModel();
             model.setId(u.getId());
             model.setEmail(u.getEmail());
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> getAllUsers() {
-        return userRepository.findAll().stream().map(user->{
+        return userRepository.findAll().stream().map(user -> {
             UserModel model = new UserModel();
             model.setId(user.getId());
             model.setEmail(user.getEmail());
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private User convertPostUserModelToEntity(PostUserModel model){
+    private User convertPostUserModelToEntity(PostUserModel model) {
         User user = new User();
         user.setEmail(model.getEmail());
         user.setEnabled(false);
@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(model.getPassword()));
         return user;
     }
+
     @Transactional
     @Override
     public void createUserPJ(PostUserPJModel model) throws BussinessException {
@@ -127,7 +128,7 @@ public class UserServiceImpl implements UserService {
     public UserModel findByUsername(String username) throws BussinessException {
         Optional<User> user = userRepository.findByUsername(username);
         USER_NOT_FOUND_EXCEPTION.thrownIf(!user.isPresent());
-        return user.map(u->{
+        return user.map(u -> {
             UserModel model = new UserModel();
             model.setId(u.getId());
             model.setEmail(u.getEmail());
@@ -135,6 +136,7 @@ public class UserServiceImpl implements UserService {
             return model;
         }).get();
     }
+
 
     @Override
     public UserModel getMe(SecurityUser user) {
@@ -147,17 +149,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void changePassword(SecurityUser user,ChangePasswordModel model) throws BussinessException {
+    public void changePassword(SecurityUser user, ChangePasswordModel model) throws BussinessException {
         NEW_PASSWORD_DONT_MATCH_EXCEPTION.thrownIf(!model.getNewPassword().equals(model.getConfirmNewPassword()));
         Optional<User> optionalUser = userRepository.findById(user.getId());
         USER_NOT_FOUND_EXCEPTION.thrownIf(!optionalUser.isPresent());
         User entity = optionalUser.get();
-        OLD_PASSWORD_DONT_MATCH_EXCEPTION.thrownIf(!passwordEncoder.matches(model.getOldPassword(),entity.getPassword()));
+        OLD_PASSWORD_DONT_MATCH_EXCEPTION.thrownIf(!passwordEncoder.matches(model.getOldPassword(), entity.getPassword()));
         entity.setPassword(passwordEncoder.encode(model.getNewPassword()));
         userRepository.save(entity);
     }
 
-    public User convertModelToEntity(UserAndPersonModel model){
+    public User convertModelToEntity(UserAndPersonModel model) {
         User entity = new User();
 
         if (model.getId() != null) {

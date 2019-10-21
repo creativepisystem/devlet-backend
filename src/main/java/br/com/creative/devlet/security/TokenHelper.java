@@ -2,6 +2,7 @@ package br.com.creative.devlet.security;
 
 import br.com.creative.devlet.config.TimeProvider;
 import br.com.creative.devlet.entity.User;
+import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,25 +19,21 @@ import java.util.Optional;
 @Component
 public class TokenHelper {
 
-    @Value("${spring.application.name}")
-    private String APP_NAME;
-
+    static final String AUDIENCE_WEB = "web";
     @Value("${jwt.secret}")
     public String SECRET;
-
-    @Value("${jwt.expires_in}")
-    private long EXPIRES_IN;
-
-    @Value("${jwt.header}")
-    private String AUTH_HEADER;
-
-    static final String AUDIENCE_WEB = "web";
-
     @Autowired
     TimeProvider timeProvider;
-
     @Autowired
     UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Value("${spring.application.name}")
+    private String APP_NAME;
+    @Value("${jwt.expires_in}")
+    private long EXPIRES_IN;
+    @Value("${jwt.header}")
+    private String AUTH_HEADER;
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     public String getUsernameFromToken(String token) {
@@ -81,7 +78,7 @@ public class TokenHelper {
             refreshedToken = Jwts.builder()
                     .setClaims(claims)
                     .setExpiration(generateExpirationDate())
-                    .signWith( SIGNATURE_ALGORITHM, SECRET )
+                    .signWith(SIGNATURE_ALGORITHM, SECRET)
                     .compact();
         } catch (Exception e) {
             refreshedToken = null;
@@ -92,12 +89,12 @@ public class TokenHelper {
     public String generateToken(String username) {
         String audience = AUDIENCE_WEB;
         return Jwts.builder()
-                .setIssuer( APP_NAME )
+                .setIssuer(APP_NAME)
                 .setSubject(username)
                 .setAudience(audience)
                 .setIssuedAt(timeProvider.now())
                 .setExpiration(generateExpirationDate())
-                .signWith( SIGNATURE_ALGORITHM, SECRET )
+                .signWith(SIGNATURE_ALGORITHM, SECRET)
                 .compact();
     }
 
@@ -123,7 +120,7 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        Optional<User> user = userService.findByUsername(userDetails.getUsername());
+        Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
         return (
@@ -137,20 +134,20 @@ public class TokenHelper {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
 
-    public String getToken( HttpServletRequest request ) {
+    public String getToken(HttpServletRequest request) {
         /**
          *  Getting the token from Authentication header
          *  e.g Bearer your_token
          */
-        String authHeader = getAuthHeaderFromHeader( request );
-        if ( authHeader != null && authHeader.startsWith("Bearer ")) {
+        String authHeader = getAuthHeaderFromHeader(request);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
 
         return null;
     }
 
-    public String getAuthHeaderFromHeader( HttpServletRequest request ) {
+    public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader(AUTH_HEADER);
     }
 

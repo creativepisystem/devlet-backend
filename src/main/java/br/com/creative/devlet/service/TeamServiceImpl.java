@@ -40,13 +40,13 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void addPersonToTeam(PersonToTeamModel model, SecurityUser user) throws BussinessException {
         Long idTeam = model.getIdTeam(), idPerson = model.getIdPerson();
-        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf( idPerson < 1 || idTeam < 1);
+        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf(idPerson < 1 || idTeam < 1);
         Optional<Person> person = personService.findById(idPerson);
         PERSON_DOESNT_EXIST_EXCEPTION.thrownIf(!person.isPresent());
-        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().equals(user.getEnterprise()));
+        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
-        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().equals(user.getEnterprise()));
+        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
 
         Team team = entity.get();
 
@@ -72,8 +72,8 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team create(TeamModel model, SecurityUser user) throws BussinessException {
         Enterprise_DOESNT_EXIST_EXCEPTION.thrownIf(!enterpriseService.findById(model.getIdEnterprise()).isPresent());
-//        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(
-//                !model.getIdEnterprise().equals(user.getEnterprise().getId()));
+        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(
+                !model.getIdEnterprise().equals(user.getEnterprise().getId()));
         return teamRepository.save(convertModelToEntity(model));
     }
 
@@ -99,20 +99,20 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void removePersonFromTeam(PersonToTeamModel model, SecurityUser user) throws BussinessException {
         Long idTeam = model.getIdTeam(), idPerson = model.getIdPerson();
-        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf( idPerson < 1 || idTeam < 1);
+        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf(idPerson < 1 || idTeam < 1);
         Optional<Person> person = personService.findById(idPerson);
         PERSON_DOESNT_EXIST_EXCEPTION.thrownIf(!person.isPresent());
-        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().equals(user.getEnterprise()));
+        PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
-        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().equals(user.getEnterprise()));
+        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
 
         Team team = entity.get();
 
         THERE_ARE_NO_PEOPLE_IN_THE_TEAM_EXCEPTION.thrownIf(team.getPeople() == null);
-        PERSON_IS_NOT_IN_TEAM_EXCEPTION.thrownIf(!team.getPeople().contains(person));
+        PERSON_IS_NOT_IN_TEAM_EXCEPTION.thrownIf(!team.getPeople().contains(person.get()));
 
-        team.getPeople().remove(person);
+        team.getPeople().remove(person.get());
 
         teamRepository.save(team);
     }
@@ -140,11 +140,4 @@ public class TeamServiceImpl implements TeamService {
         model.setEnterprise(enterpriseService.convertEntityToGetEnterpriseModel(entity.getEnterprise()));
         return model;
     }
-/*TODO
-  check security user parameters (X)
-
-  revise team service bossiness exceptions (X)
-
-  test variables
- */
 }
