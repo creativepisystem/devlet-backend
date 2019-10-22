@@ -31,6 +31,8 @@ public interface UserService {
 
     UserModel findByUsername(String username) throws BussinessException;
 
+    User findUserByUsername(String username);
+
     UserModel getMe(SecurityUser user);
 
     void changePassword(SecurityUser user,ChangePasswordModel model) throws BussinessException;

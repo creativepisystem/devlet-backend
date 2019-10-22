@@ -1,8 +1,6 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Person;
-import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.UserAndPersonModel;
 import br.com.creative.devlet.repo.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,11 @@ import java.util.Optional;
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
+    private
     PersonRepository personRepository;
 
     @Autowired
+    private
     IntegrationService integrationService;
 
     @Override
@@ -29,8 +29,6 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> findAll() {
         return (List<Person>) personRepository.findAll();
     }
-
-
 
 //    @Transactional
 //    @Override
@@ -57,10 +55,12 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findByCpf(cpf);
     }
 
+
     @Override
     public void save(Person person) {
         personRepository.save(person);
     }
+
 
 //    private Person convertModelToEntity(UserAndPersonModel model) {
 //        Person entity = new Person();

@@ -12,6 +12,7 @@ public class Person {
     @Column(name = "id")
     private Long id;
 
+
     @OneToOne
     @JoinColumn(name = "id")
     @MapsId(value = "id")
@@ -48,9 +49,11 @@ public class Person {
     @Column(unique = true)
     private String cpf;
 
+
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
+
 
     public Long getId() {
         return id;
@@ -155,6 +158,5 @@ public class Person {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
 
 }

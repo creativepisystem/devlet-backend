@@ -1,11 +1,9 @@
 package br.com.creative.devlet.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import br.com.creative.devlet.enums.EnumRole;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name="USERS")
@@ -34,10 +32,11 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
     private Person person;
 
-    @OneToOne(mappedBy = "user")
+
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
     private Enterprise enterprise;
 
     @Enumerated(EnumType.STRING)

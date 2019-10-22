@@ -1,12 +1,5 @@
 package br.com.creative.devlet.utils;
 
-import br.com.creative.devlet.entity.User;
-
-import java.util.Random;
-import java.util.UUID;
-
-import static java.lang.String.format;
-
 public class TestHelper {
 //    public static User buildUser() {
 //        String uuid = UUID.randomUUID().toString();

@@ -1,14 +1,9 @@
 package br.com.creative.devlet.security.auth;
 
-import br.com.creative.devlet.exception.AuthException;
+import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 

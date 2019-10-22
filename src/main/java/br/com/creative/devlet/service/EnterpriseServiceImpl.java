@@ -3,6 +3,7 @@ package br.com.creative.devlet.service;
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.GetEnterpriseModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
 import br.com.creative.devlet.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         if (enterprise.isPresent()) {
             enterpriseRepository.delete(enterprise.get());
         }
+
     }
 
     @Override
@@ -102,6 +104,16 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         entity.setZipCode(model.getZipCode());
         return entity;
     }
+
+    @Override
+    public GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity) {
+        GetEnterpriseModel model = new GetEnterpriseModel();
+        model.setId(entity.getId());
+        model.setName(entity.getName());
+        model.setType(entity.getType());
+        return model;
+    }
+
     /**
      public Enterprise convertEntityToModel(Enterprise entity){
      EnterpriseCreateUpdateModel model = new EnterpriseCreateUpdateModel();

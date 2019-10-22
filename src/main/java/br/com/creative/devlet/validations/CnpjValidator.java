@@ -1,7 +1,5 @@
 package br.com.creative.devlet.validations;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.InputMismatchException;

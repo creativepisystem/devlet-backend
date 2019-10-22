@@ -1,7 +1,5 @@
 package br.com.creative.devlet.config;
 
-import br.com.creative.devlet.enums.EnumAttributes;
-import br.com.creative.devlet.enums.EnumLanguage;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 

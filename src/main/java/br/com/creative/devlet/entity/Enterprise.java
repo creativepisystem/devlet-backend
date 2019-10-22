@@ -57,6 +57,7 @@ public class Enterprise {
     @Column
     private Boolean enabled;
 
+
     public User getUser() {
         return user;
     }
