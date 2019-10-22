@@ -40,15 +40,14 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void addPersonToTeam(PersonToTeamModel model, SecurityUser user) throws BussinessException {
         Long idTeam = model.getIdTeam(), idPerson = model.getIdPerson();
-        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf(idPerson < 1 || idTeam < 1);
+        TEAM_OR_PERSON_ID_ARE_INVALID_EXCEPTION.thrownIf(idPerson == null || idTeam == null);
         Optional<Person> person = personService.findById(idPerson);
         PERSON_DOESNT_EXIST_EXCEPTION.thrownIf(!person.isPresent());
         PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
-        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
-
         Team team = entity.get();
+        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!team.getEnterprise().getId().equals(user.getEnterprise().getId()));
 
         if (team.getPeople() == null) {
             List<Person> people = new ArrayList<>();
@@ -105,9 +104,8 @@ public class TeamServiceImpl implements TeamService {
         PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!person.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
         Optional<Team> entity = teamRepository.findById(idTeam);
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
-        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!entity.get().getEnterprise().getId().equals(user.getEnterprise().getId()));
-
         Team team = entity.get();
+        TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!team.getEnterprise().getId().equals(user.getEnterprise().getId()));
 
         THERE_ARE_NO_PEOPLE_IN_THE_TEAM_EXCEPTION.thrownIf(team.getPeople() == null);
         PERSON_IS_NOT_IN_TEAM_EXCEPTION.thrownIf(!team.getPeople().contains(person.get()));

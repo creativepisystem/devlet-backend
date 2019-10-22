@@ -19,7 +19,7 @@ public class Team {
     @Column(name = "date", insertable = false, columnDefinition = "timestamp with time zone default current_timestamp")
     private Date date;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "person_team",
             joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"))

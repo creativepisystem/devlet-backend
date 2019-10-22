@@ -2,7 +2,6 @@ package br.com.creative.devlet.security;
 
 import br.com.creative.devlet.config.TimeProvider;
 import br.com.creative.devlet.entity.User;
-import br.com.creative.devlet.repo.UserRepository;
 import br.com.creative.devlet.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.Optional;
 
 @Component
 public class TokenHelper {
@@ -26,8 +24,6 @@ public class TokenHelper {
     TimeProvider timeProvider;
     @Autowired
     UserService userService;
-    @Autowired
-    private UserRepository userRepository;
     @Value("${spring.application.name}")
     private String APP_NAME;
     @Value("${jwt.expires_in}")
@@ -120,13 +116,13 @@ public class TokenHelper {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-        Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
+        User user = userService.findUserByUsername(userDetails.getUsername());
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
         return (
                 username != null &&
                         username.equals(userDetails.getUsername()) &&
-                        !isCreatedBeforeLastPasswordReset(created, user.get().getLastPasswordResetDate())
+                        !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())
         );
     }
 

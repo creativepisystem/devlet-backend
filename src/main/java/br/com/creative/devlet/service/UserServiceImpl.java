@@ -137,6 +137,11 @@ public class UserServiceImpl implements UserService {
         }).get();
     }
 
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
+
 
     @Override
     public UserModel getMe(SecurityUser user) {
