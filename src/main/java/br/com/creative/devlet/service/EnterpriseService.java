@@ -2,7 +2,7 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.EnterprisePostModel;
 import br.com.creative.devlet.model.GetEnterpriseModel;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public interface EnterpriseService {
 
     List<Enterprise> findAll();
 
-    Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException;
+    Enterprise create(EnterprisePostModel model) throws BussinessException;
 
-    Enterprise update(EnterpriseCreateUpdateModel model) throws BussinessException;
+    Enterprise update(EnterprisePostModel model) throws BussinessException;
 
     void delete(Long id);
 
@@ -31,6 +31,6 @@ public interface EnterpriseService {
 
     GetEnterpriseModel convertEntityToGetEnterpriseModel(Enterprise entity);
 
-    void save( Enterprise enterprise);
+    void save(Enterprise entity);
 
 }

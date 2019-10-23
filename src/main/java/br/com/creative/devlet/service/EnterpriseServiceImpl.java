@@ -2,7 +2,7 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.EnterprisePostModel;
 import br.com.creative.devlet.model.GetEnterpriseModel;
 import br.com.creative.devlet.repo.EnterpriseRepository;
 import br.com.creative.devlet.repo.UserRepository;
@@ -37,7 +37,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
     @Transactional
     @Override
-    public Enterprise create(EnterpriseCreateUpdateModel model) throws BussinessException {
+    public Enterprise create(EnterprisePostModel model) throws BussinessException {
         NON_UNIQUE_CNPJ_EXCEPTION.thrownIf(enterpriseRepository.findByCnpj(model.getCnpj().replaceAll("[^0-9]", "")).isPresent());
         NON_UNIQUE_EMAIL_EXCEPTION.thrownIf(enterpriseRepository.findByEmail(model.getEmail()).isPresent());
         integrationService.getAdressByZipCode(model.getZipCode());
@@ -52,7 +52,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
     @Transactional
     @Override
-    public Enterprise update(EnterpriseCreateUpdateModel model) throws BussinessException {
+    public Enterprise update(EnterprisePostModel model) throws BussinessException {
         model.setCnpj(model.getCnpj().replaceAll("[^0-9]",""));
         model.setZipCode(model.getZipCode().replaceAll("[^0-9]",""));
         model.setPhone(model.getPhone().replaceAll("[^0-9]",""));
@@ -80,11 +80,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Optional<Enterprise> findByEmail(String email){ return enterpriseRepository.findByEmail(email);}
 
     @Override
-    public void save(Enterprise enterprise) {
-        enterpriseRepository.save(enterprise);
+    public void save(Enterprise entity) {
+        enterpriseRepository.save(entity);
     }
 
-    private Enterprise convertModelToEntity(EnterpriseCreateUpdateModel model) {
+    private Enterprise convertModelToEntity(EnterprisePostModel model) {
         Enterprise entity = new Enterprise();
         if (model.getId() != null) {
             entity.setId(model.getId());
@@ -113,25 +113,4 @@ public class EnterpriseServiceImpl implements EnterpriseService {
         model.setType(entity.getType());
         return model;
     }
-
-    /**
-     public Enterprise convertEntityToModel(Enterprise entity){
-     EnterpriseCreateUpdateModel model = new EnterpriseCreateUpdateModel();
-     model.setId(entity.getId());
-     model.setCnpj(entity.getCnpj());
-     model.setCity(entity.getCnpj());
-     model.setCountry(entity.getCountry());
-     model.setEmail(entity.getEmail());
-     model.setEnabled(entity.getEnabled());
-     model.setName(entity.getName());
-     model.setNeighborhood(entity.getNeighborhood());
-     model.setNumber(entity.getNumber());
-     model.setPhone(entity.getPhone());
-     model.setState(entity.getState());
-     model.setStreet(entity.getStreet());
-     model.setType(entity.getType());
-     model.setZipCode(entity.getZipCode());
-     return  model;
-     }
-     */
 }
