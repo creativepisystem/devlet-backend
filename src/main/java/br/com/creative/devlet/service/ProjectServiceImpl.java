@@ -7,12 +7,14 @@ import br.com.creative.devlet.model.PostProjectModel;
 import br.com.creative.devlet.repo.ProjectRepository;
 import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private ProjectRepository projectRepository;
