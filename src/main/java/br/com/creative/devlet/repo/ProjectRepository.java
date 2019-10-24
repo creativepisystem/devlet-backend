@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ProjectRepository extends CrudRepository<Project, Long> {
-    @Query(value = "select * from project where client_id = 1?")
+    @Query(value = "select * from project where client_id = ?1",nativeQuery = true)
     List<Project> findAllProjectsFromClient(Long clientId);
 }
