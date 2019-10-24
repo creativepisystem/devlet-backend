@@ -1,12 +1,17 @@
 package br.com.creative.devlet.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class PostProjectModel {
     private Long id;
+    @NotBlank(message = "Name must not be empty")
     private String name;
     private String description;
+    @Positive(message = "budget must be positive")
     private BigDecimal budget;
+    @Positive(message = "The estimated hours must be positive")
     private Integer estimatedHours;
     private Long clientId;
     private Long teamId;
