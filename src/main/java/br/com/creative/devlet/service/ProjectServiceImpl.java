@@ -61,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public void delete(Long id,SecurityUser user) throws BussinessException{
         Optional<Project> entity = projectRepository.findById(id);
-        PROJECT_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(user.getEnterprise().getId().equals(projectRepository.findById(id).get().getEnterprise().getId()));
+        PROJECT_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(user.getEnterprise().equals(projectRepository.findById(id).get().getEnterprise()));
         if (entity.isPresent()) {
             projectRepository.delete(entity.get());
         }
