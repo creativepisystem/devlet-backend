@@ -90,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService{
         entity.setDescription(model.getDescription());
         entity.setEnterprise(user.getEnterprise());
         entity.setEstimatedHours(model.getEstimatedHours());
-        entity.setTeam(teamService.findEntityById((model.getClientId())));
+        entity.setTeam(teamService.findEntityById(model.getTeamId()));
         entity.setName(model.getName());
         return entity;
     }
