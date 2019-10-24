@@ -35,6 +35,10 @@ public class TeamServiceImpl implements TeamService {
         TEAM_DOESNT_EXIST_EXCEPTION.thrownIf(!entity.isPresent());
         return convertEntityToGetTeamModel(entity.get());
     }
+    @Override
+    public Team findEntityById(Long id){
+        return teamRepository.findById(id).get();
+    }
 
     @Transactional
     @Override
@@ -125,7 +129,7 @@ public class TeamServiceImpl implements TeamService {
         return entity;
     }
 
-    private GetTeamModel convertEntityToGetTeamModel(Team entity) {
+    public GetTeamModel convertEntityToGetTeamModel(Team entity) {
         GetTeamModel model = new GetTeamModel();
         model.setId(entity.getId());
         model.setName(entity.getName());
