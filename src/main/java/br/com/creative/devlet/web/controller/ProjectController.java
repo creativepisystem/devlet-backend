@@ -75,7 +75,7 @@ public class ProjectController extends BaseController {
     public ResponseEntity<?> deleteProject(@PathVariable Long id,@AuthenticationPrincipal SecurityUser user){
         try {
             projectService.delete(id,user);
-            return getResponse("Project removed succefully",EnumResponseType.SUCCESS);
+            return getResponse("Project removed successfully",EnumResponseType.SUCCESS);
         }catch (BussinessException e){
             return getResponse(e.getMessage(),EnumResponseType.BUSSINESS_EXCEPTION);
         }catch (Exception e){
