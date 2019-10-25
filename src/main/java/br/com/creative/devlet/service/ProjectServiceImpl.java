@@ -32,6 +32,11 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
+    public Project findEntityById(Long id) {
+        return projectRepository.findById(id).get();
+    }
+
+    @Override
     public List<GetProjectModel> findAll() {
         List<Project> projects = (List<Project>) projectRepository.findAll();
         return projects.stream().map(this::convertEntityToGetProjectModel).collect(Collectors.toList());

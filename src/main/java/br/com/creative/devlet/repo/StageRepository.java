@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface StageRepository extends CrudRepository<Stage, Long> {
     @Query(value = "select * from stage where project_id = ?1", nativeQuery = true)
-    Optional<Stage> findStagesOfProject(Long projectId);
+    List<Stage> findStagesOfProject(Long projectId);
 }

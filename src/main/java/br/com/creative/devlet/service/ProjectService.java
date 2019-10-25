@@ -15,6 +15,8 @@ public interface ProjectService {
 
     GetProjectModel findById(Long id) throws BussinessException;
 
+    Project findEntityById(Long id);
+
     List<GetProjectModel> findAll();
 
     List<GetProjectModel> findAllProjectsFromClient(Long clientId);
@@ -24,4 +26,6 @@ public interface ProjectService {
     Project update(PostProjectModel model, SecurityUser user) throws BussinessException;
 
     void delete(Long id, SecurityUser user) throws BussinessException;
+
+    GetProjectModel convertEntityToGetProjectModel(Project entity);
 }

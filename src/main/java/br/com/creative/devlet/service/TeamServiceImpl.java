@@ -74,7 +74,7 @@ public class TeamServiceImpl implements TeamService {
     @Transactional
     @Override
     public Team create(TeamModel model, SecurityUser user) throws BussinessException {
-        Enterprise_DOESNT_EXIST_EXCEPTION.thrownIf(!enterpriseService.findById(model.getIdEnterprise()).isPresent());
+        ENTERPRISE_DOESNT_EXIST_EXCEPTION.thrownIf(!enterpriseService.findById(model.getIdEnterprise()).isPresent());
         TEAM_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(
                 !model.getIdEnterprise().equals(user.getEnterprise().getId()));
         return teamRepository.save(convertModelToEntity(model));

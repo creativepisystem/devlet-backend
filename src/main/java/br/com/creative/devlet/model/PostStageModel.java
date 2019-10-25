@@ -4,7 +4,6 @@ public class PostStageModel {
     private String name;
     private String description;
     private Long projectId;
-    private Long enterpriseId;
 
     public String getName() {
         return name;
@@ -28,13 +27,5 @@ public class PostStageModel {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
-    }
-
-    public Long getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Long enterpriseId) {
-        this.enterpriseId = enterpriseId;
     }
 }
