@@ -41,6 +41,16 @@ public class ProjectController extends BaseController {
         }
     }
 
+    @GetMapping("client-projects/{id}")
+    public ResponseEntity<?> getProjectsOfClient(@PathVariable Long clientId){
+        try {
+            List<GetProjectModel> projectModels = projectService.findAllProjectsFromClient(clientId);
+            return new ResponseEntity<>(projectModels,HttpStatus.OK);
+        }catch (Exception e){
+            return getResponse(e.getMessage(),EnumResponseType.UNKNOWN_ERROR);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createProject(@Valid @RequestBody PostProjectModel model, BindingResult validation, @AuthenticationPrincipal SecurityUser user){
         if(validation.hasErrors()){
