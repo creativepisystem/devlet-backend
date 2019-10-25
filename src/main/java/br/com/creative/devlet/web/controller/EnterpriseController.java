@@ -4,6 +4,7 @@ import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.enums.EnumResponseType;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.EnterprisePostModel;
+import br.com.creative.devlet.model.GetEnterpriseModel;
 import br.com.creative.devlet.service.EnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,9 @@ public class EnterpriseController extends BaseController {
     private EnterpriseService enterpriseService;
 
     @GetMapping("")
-    public List<Enterprise> getEnterprises() {
-        return enterpriseService.findAll();
+    public ResponseEntity<?> getEnterprises() {
+        List<Enterprise> enterprises = enterpriseService.findAll();
+        return new ResponseEntity<>(enterprises,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
