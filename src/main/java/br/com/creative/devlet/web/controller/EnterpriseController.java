@@ -22,8 +22,9 @@ public class EnterpriseController extends BaseController {
     private EnterpriseService enterpriseService;
 
     @GetMapping("")
-    public List<Enterprise> getEnterprises() {
-        return enterpriseService.findAll();
+    public ResponseEntity<?> getEnterprises() {
+        List<Enterprise> enterprises = enterpriseService.findAll();
+        return new ResponseEntity<>(enterprises,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -24,8 +24,9 @@ public class ProjectController extends BaseController {
     private ProjectService projectService;
 
     @GetMapping("")
-    public List<GetProjectModel> getProjects() {
-        return projectService.findAll();
+    public ResponseEntity<?> getProjects() {
+        List<GetProjectModel> projectModels = projectService.findAll();
+        return new ResponseEntity<>(projectModels,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

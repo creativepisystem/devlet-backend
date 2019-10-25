@@ -26,8 +26,9 @@ public class    TeamController extends BaseController {
     private TeamService teamService;
 
     @GetMapping("")
-    public List<GetTeamModel> getTeams() {
-        return teamService.findAll();
+    public ResponseEntity<?> getTeams() {
+        List<GetTeamModel> teamModels = teamService.findAll();
+        return new ResponseEntity<>(teamModels,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
