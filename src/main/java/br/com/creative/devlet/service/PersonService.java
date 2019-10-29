@@ -24,5 +24,5 @@ public interface PersonService {
 
     Optional<Person> findByCpf(String cpf);
 
-    void save(Person person);
+    void save(Person entity);
 }

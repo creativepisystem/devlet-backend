@@ -21,13 +21,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/team")
-public class TeamController extends BaseController {
+public class    TeamController extends BaseController {
     @Autowired
     private TeamService teamService;
 
     @GetMapping("")
-    public List<GetTeamModel> getTeams() {
-        return teamService.findAll();
+    public ResponseEntity<?> getTeams() {
+        List<GetTeamModel> teamModels = teamService.findAll();
+        return new ResponseEntity<>(teamModels,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -116,20 +117,4 @@ public class TeamController extends BaseController {
             return getResponse(e.getMessage(), EnumResponseType.UNKNOWN_ERROR);
         }
     }
-
-
-    /*
-     * TODO
-     * adicionar chave estrangeira da empresa para o time X
-     * adicionar campo relativo na Entidade (Team e Empresa) X
-     *
-     * Buscar o usuario (verificar linha 86 AuthenticationController) X
-     *
-     * pegar empresa do usuario X
-     * verificar se time e usuario sao da mesma empresa X
-     *
-     * verificar se usuario e person sao da mesma empresa X
-     *
-     * adiconar anotação de hasHole pra segunça(ADMIN,MANAGER) X
-     * */
 }

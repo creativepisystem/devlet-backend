@@ -23,6 +23,8 @@ public interface TeamService {
 
     GetTeamModel findById(Long id) throws BussinessException;
 
+    Team findEntityById(Long id);
+
     void addPersonToTeam(PersonToTeamModel model, SecurityUser user) throws BussinessException;
 
     List<GetTeamModel> findAll();
@@ -34,4 +36,6 @@ public interface TeamService {
     void delete(Long id,SecurityUser user) throws BussinessException;
 
     void removePersonFromTeam(PersonToTeamModel model,SecurityUser user) throws BussinessException;
+
+    GetTeamModel convertEntityToGetTeamModel(Team entity);
 }

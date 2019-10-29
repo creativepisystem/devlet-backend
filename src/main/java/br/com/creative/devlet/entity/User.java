@@ -27,14 +27,13 @@ public class User {
     private String email;
 
     @Column(name = "enabled")
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 
     @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
     private Person person;
-
 
     @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
     private Enterprise enterprise;

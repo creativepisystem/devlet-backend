@@ -17,12 +17,14 @@ import java.util.Date;
 @Component
 public class TokenHelper {
 
-    static final String AUDIENCE_WEB = "web";
+    private static final String AUDIENCE_WEB = "web";
     @Value("${jwt.secret}")
-    public String SECRET;
+    private String SECRET;
     @Autowired
+    private
     TimeProvider timeProvider;
     @Autowired
+    private
     UserService userService;
     @Value("${spring.application.name}")
     private String APP_NAME;

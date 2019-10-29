@@ -8,7 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
-public class EnterpriseCreateUpdateModel {
+public class EnterprisePostModel {
 
     private Long id;
     @NotBlank(message = "Name can't be empty")

@@ -3,7 +3,7 @@ package br.com.creative.devlet.web.controller;
 import br.com.creative.devlet.entity.Enterprise;
 import br.com.creative.devlet.enums.EnumResponseType;
 import br.com.creative.devlet.exception.BussinessException;
-import br.com.creative.devlet.model.EnterpriseCreateUpdateModel;
+import br.com.creative.devlet.model.EnterprisePostModel;
 import br.com.creative.devlet.service.EnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,9 @@ public class EnterpriseController extends BaseController {
     private EnterpriseService enterpriseService;
 
     @GetMapping("")
-    public List<Enterprise> getEnterprises() {
-        return enterpriseService.findAll();
+    public ResponseEntity<?> getEnterprises() {
+        List<Enterprise> enterprises = enterpriseService.findAll();
+        return new ResponseEntity<>(enterprises,HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -34,7 +35,7 @@ public class EnterpriseController extends BaseController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
+    public ResponseEntity<?> createEnterprise(@Valid @RequestBody EnterprisePostModel enterprise, BindingResult validation) {
         if (validation.hasErrors()) {
             return getErrorsResponse(validation);
         } else {
@@ -47,7 +48,7 @@ public class EnterpriseController extends BaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterpriseCreateUpdateModel enterprise, BindingResult validation) {
+    public ResponseEntity<?> updateEnterprise(@PathVariable Long id, @Valid @RequestBody EnterprisePostModel enterprise, BindingResult validation) {
         if (validation.hasErrors()) {
             return getErrorsResponse(validation);
         } else {

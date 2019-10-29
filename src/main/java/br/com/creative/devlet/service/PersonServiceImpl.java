@@ -57,8 +57,8 @@ public class PersonServiceImpl implements PersonService {
 
 
     @Override
-    public void save(Person person) {
-        personRepository.save(person);
+    public void save(Person entity) {
+        personRepository.save(entity);
     }
 
 
