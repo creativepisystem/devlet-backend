@@ -1,6 +1,7 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Activity;
+import br.com.creative.devlet.enums.EnumActivityStatus;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetActivityModel;
 import br.com.creative.devlet.model.PostActivityModel;
@@ -23,5 +24,8 @@ public interface ActivityService {
 
     Activity update(PutStageModel model, SecurityUser user) throws BussinessException;
 
+    void updateActivityStatus(EnumActivityStatus status, Long id) throws BussinessException;
+
     void delete(Long id, SecurityUser user) throws BussinessException;
+
 }

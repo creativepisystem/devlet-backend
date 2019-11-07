@@ -1,7 +1,12 @@
 package br.com.creative.devlet.entity;
 
+import br.com.creative.devlet.enums.EnumActivityStatus;
+import br.com.creative.devlet.model.CheckListModel;
+import br.com.creative.devlet.util.HashMapConverter;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "activity")
@@ -16,16 +21,18 @@ public class Activity {
     @Column
     private String description;
 
-    @Column(name = "creation_date",insertable = false,updatable = false,
-            columnDefinition = "timestamp with time zone default current_timestamp")
-    private Date creationDate;
+    @Column(insertable = false,columnDefinition = "varchar(50) default 'CLOSED' not null")
+    private EnumActivityStatus status;
 
-    @Column(name = "conclusion_date",insertable = false,
-            columnDefinition = "timestamp with time zone default null")
+    @Column(name = "opening_date", insertable = false)
+    private Date openingDate;
+
+    @Column(name = "conclusion_date", insertable = false)
     private Date conclusionDate;
 
     @Column
-    private String content;
+    @Convert(converter = HashMapConverter.class)
+    private List<CheckListModel> checklist;
 
     @Column
     private Person person;
@@ -61,12 +68,20 @@ public class Activity {
         this.description = description;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public EnumActivityStatus getStatus() {
+        return status;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setStatus(EnumActivityStatus status) {
+        this.status = status;
+    }
+
+    public Date getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(Date openingDate) {
+        this.openingDate = openingDate;
     }
 
     public Date getConclusionDate() {
@@ -77,12 +92,12 @@ public class Activity {
         this.conclusionDate = conclusionDate;
     }
 
-    public String getContent() {
-        return content;
+    public List<CheckListModel> getChecklist() {
+        return checklist;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setChecklist(List<CheckListModel> checklist) {
+        this.checklist = checklist;
     }
 
     public Person getPerson() {
