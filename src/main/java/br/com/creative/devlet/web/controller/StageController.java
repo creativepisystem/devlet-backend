@@ -41,7 +41,7 @@ public class StageController extends BaseController {
         }
     }
 
-    @GetMapping("/project-stages/{id}")
+    @GetMapping("/project-stages/{projectId}")
     public ResponseEntity<?> getStagesOfProject(@PathVariable Long projectId){
         try {
             List<GetStageModel> stageModels = stageService.findStagesOfProject(projectId);

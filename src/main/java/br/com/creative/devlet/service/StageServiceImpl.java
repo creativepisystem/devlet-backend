@@ -1,5 +1,6 @@
 package br.com.creative.devlet.service;
 
+import br.com.creative.devlet.entity.Project;
 import br.com.creative.devlet.entity.Stage;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetStageModel;
@@ -39,7 +40,7 @@ public class StageServiceImpl implements StageService {
 
     @Override
     public List<GetStageModel> findStagesOfProject(Long projectId) {
-        List<Stage> stages = (List<Stage>) stageRepository.findStagesOfProject(projectId);
+        List<Stage> stages = stageRepository.findStagesOfProject(projectId);
         return stages.stream().map(this::convertEntityToGetStageModel).collect(Collectors.toList());
     }
 
@@ -57,7 +58,7 @@ public class StageServiceImpl implements StageService {
                 stageRepository.findById(model.getId()).get().getProject().getEnterprise().getId()));
         STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!user.getEnterprise().getId().equals(
                 stageRepository.findById(model.getId()).get().getEnterprise().getId()));
-        return stageRepository.save(convertPutStageModelToEntity(model));
+        return stageRepository.save(convertPutStageModelToEntity(model,user));
     }
 
     @Override
@@ -65,7 +66,7 @@ public class StageServiceImpl implements StageService {
         Optional<Stage> entity = stageRepository.findById(id);
         STAGE_DOESNT_EXISTS_EXCEPTION.thrownIf(!entity.isPresent());
         Stage stage = entity.get();
-        STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(user.getEnterprise().getId().equals(
+        STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION.thrownIf(!user.getEnterprise().getId().equals(
                 stage.getEnterprise().getId()));
         stageRepository.delete(stage);
     }
@@ -90,12 +91,16 @@ public class StageServiceImpl implements StageService {
         return entity;
     }
 
-    public Stage convertPutStageModelToEntity(PutStageModel model){
+    public Stage convertPutStageModelToEntity(PutStageModel model,SecurityUser user){
         Stage entity = new Stage();
+        Project project;
         entity.setName(model.getName());
         entity.setId(model.getId());
         entity.setDescription(model.getDescription());
         entity.setDate(model.getDate());
+        entity.setEnterprise(user.getEnterprise());
+        project = stageRepository.findById(model.getId()).get().getProject();
+        entity.setProject(project);
         return entity;
     }
 }
