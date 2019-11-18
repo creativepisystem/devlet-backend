@@ -4,10 +4,13 @@ import br.com.creative.devlet.enums.EnumEnterpriseType;
 import br.com.creative.devlet.enums.EnumState;
 
 import javax.persistence.*;
-
+/**
+* Represents the enterprise database table
+*/
 @Entity
 @Table(name = "enterprise")
 public class Enterprise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
