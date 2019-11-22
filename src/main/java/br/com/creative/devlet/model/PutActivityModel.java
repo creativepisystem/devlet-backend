@@ -1,15 +1,17 @@
 package br.com.creative.devlet.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class PutActivityModel {
     private Long id;
     private String title;
     private String description;
+    private Date openingDate;
     private Date conclusionDate;
-    private String content;
-    private Long personId;
+    private List<CheckListModel> checkList;
     private Long stageId;
+    private Long personId;
 
     public Long getId() {
         return id;
@@ -35,6 +37,14 @@ public class PutActivityModel {
         this.description = description;
     }
 
+    public Date getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(Date openingDate) {
+        this.openingDate = openingDate;
+    }
+
     public Date getConclusionDate() {
         return conclusionDate;
     }
@@ -43,20 +53,12 @@ public class PutActivityModel {
         this.conclusionDate = conclusionDate;
     }
 
-    public String getContent() {
-        return content;
+    public List<CheckListModel> getCheckList() {
+        return checkList;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    public void setCheckList(List<CheckListModel> checkList) {
+        this.checkList = checkList;
     }
 
     public Long getStageId() {
@@ -65,5 +67,13 @@ public class PutActivityModel {
 
     public void setStageId(Long stageId) {
         this.stageId = stageId;
+    }
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 }

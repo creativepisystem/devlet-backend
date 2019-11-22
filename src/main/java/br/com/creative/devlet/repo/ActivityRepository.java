@@ -16,7 +16,4 @@ public interface ActivityRepository extends CrudRepository<Activity,Long> {
 
     @Query(value = "select * from activity where stage_id = ?1",nativeQuery = true)
     List<Activity> findActivitiesOfStage(Long stageId);
-
-    @Query(value = "update activity set status = ?1 where id = ?2",nativeQuery = true)
-    void updateActivityStatus(EnumActivityStatus status, Long id);
 }

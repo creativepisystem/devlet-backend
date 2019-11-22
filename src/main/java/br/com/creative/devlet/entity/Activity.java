@@ -34,13 +34,16 @@ public class Activity {
     @Convert(converter = HashMapConverter.class)
     private List<CheckListModel> checklist;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "stage_id")
     private Stage stage;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
     private Enterprise enterprise;
 
 

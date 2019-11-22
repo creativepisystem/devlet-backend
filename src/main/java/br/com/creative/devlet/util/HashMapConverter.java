@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 public class HashMapConverter implements AttributeConverter<Object, String> {
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public String convertToDatabaseColumn(Object attribute) {

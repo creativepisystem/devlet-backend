@@ -1,5 +1,6 @@
 package br.com.creative.devlet.service;
 
+import br.com.creative.devlet.entity.Activity;
 import br.com.creative.devlet.entity.Stage;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetStageModel;
@@ -32,6 +33,11 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
+    public Stage findEntityById(Long id) {
+        return stageRepository.findById(id).get();
+    }
+
+    @Override
     public List<GetStageModel> findAll() {
         List<Stage> stages = (List<Stage>) stageRepository.findAll();
         return stages.stream().map(this::convertEntityToGetStageModel).collect(Collectors.toList());
@@ -39,7 +45,7 @@ public class StageServiceImpl implements StageService {
 
     @Override
     public List<GetStageModel> findStagesOfProject(Long projectId) {
-        List<Stage> stages = (List<Stage>) stageRepository.findStagesOfProject(projectId);
+        List<Stage> stages = stageRepository.findStagesOfProject(projectId);
         return stages.stream().map(this::convertEntityToGetStageModel).collect(Collectors.toList());
     }
 

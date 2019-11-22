@@ -1,21 +1,16 @@
 package br.com.creative.devlet.model;
 
+import java.util.Date;
+import java.util.List;
+
 public class PostActivityModel {
-    private Long id;
     private String title;
     private String description;
-    private String content;
+    private Date openingDate;
+    private Date conclusionDate;
+    private List<CheckListModel> checkList;
     private Long personId;
     private Long stageId;
-    private Long enterpriseId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -33,12 +28,28 @@ public class PostActivityModel {
         this.description = description;
     }
 
-    public String getContent() {
-        return content;
+    public Date getOpeningDate() {
+        return openingDate;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setOpeningDate(Date openingDate) {
+        this.openingDate = openingDate;
+    }
+
+    public Date getConclusionDate() {
+        return conclusionDate;
+    }
+
+    public void setConclusionDate(Date conclusionDate) {
+        this.conclusionDate = conclusionDate;
+    }
+
+    public List<CheckListModel> getCheckList() {
+        return checkList;
+    }
+
+    public void setCheckList(List<CheckListModel> checkList) {
+        this.checkList = checkList;
     }
 
     public Long getPersonId() {
@@ -55,13 +66,5 @@ public class PostActivityModel {
 
     public void setStageId(Long stageId) {
         this.stageId = stageId;
-    }
-
-    public Long getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Long enterpriseId) {
-        this.enterpriseId = enterpriseId;
     }
 }

@@ -1,5 +1,6 @@
 package br.com.creative.devlet.service;
 
+import br.com.creative.devlet.entity.Activity;
 import br.com.creative.devlet.entity.Stage;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetStageModel;
@@ -13,9 +14,11 @@ public interface StageService {
     BussinessException STAGE_DOESNT_EXISTS_EXCEPTION = new BussinessException("The selected stage doesn't exists");
     BussinessException PROJECT_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected project and the user are not in the same enterprise");
     BussinessException PROJECT_DOESNT_EXISTS_EXCEPTION = new BussinessException("The selected project doesn't exists");
-    BussinessException STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected stage and the user are not in the same enterprise");
+    BussinessException STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected stage and user are not in the same enterprise");
 
     GetStageModel findById(Long id) throws BussinessException;
+
+    Stage findEntityById(Long id);
 
     List<GetStageModel> findAll();
 
@@ -26,4 +29,6 @@ public interface StageService {
     Stage update(PutStageModel model, SecurityUser user) throws BussinessException;
 
     void delete(Long id, SecurityUser user) throws BussinessException;
+
+    GetStageModel convertEntityToGetStageModel(Stage entity);
 }

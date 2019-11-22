@@ -1,17 +1,21 @@
 package br.com.creative.devlet.model;
 
+import br.com.creative.devlet.enums.EnumActivityStatus;
+
 import java.util.Date;
+import java.util.List;
 
 public class GetActivityModel {
     private Long id;
     private String title;
     private String description;
-    private Date creationDate;
+    private EnumActivityStatus status;
+    private Date openingDate;
     private Date conclusionDate;
-    private String content;
-    private GetPersonModel personModel;
-    private GetStageModel stageModel;
-    private GetEnterpriseModel enterpriseModel;
+    private List<CheckListModel> checkList;
+    private GetPersonModel person;
+    private GetStageModel stage;
+    private GetEnterpriseModel enterprise;
 
     public Long getId() {
         return id;
@@ -37,12 +41,20 @@ public class GetActivityModel {
         this.description = description;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public EnumActivityStatus getStatus() {
+        return status;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setStatus(EnumActivityStatus status) {
+        this.status = status;
+    }
+
+    public Date getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(Date openingDate) {
+        this.openingDate = openingDate;
     }
 
     public Date getConclusionDate() {
@@ -53,35 +65,35 @@ public class GetActivityModel {
         this.conclusionDate = conclusionDate;
     }
 
-    public String getContent() {
-        return content;
+    public List<CheckListModel> getCheckList() {
+        return checkList;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setCheckList(List<CheckListModel> checkList) {
+        this.checkList = checkList;
     }
 
-    public GetPersonModel getPersonModel() {
-        return personModel;
+    public GetPersonModel getPerson() {
+        return person;
     }
 
-    public void setPersonModel(GetPersonModel personModel) {
-        this.personModel = personModel;
+    public void setPerson(GetPersonModel person) {
+        this.person = person;
     }
 
-    public GetStageModel getStageModel() {
-        return stageModel;
+    public GetStageModel getStage() {
+        return stage;
     }
 
-    public void setStageModel(GetStageModel stageModel) {
-        this.stageModel = stageModel;
+    public void setStage(GetStageModel stage) {
+        this.stage = stage;
     }
 
-    public GetEnterpriseModel getEnterpriseModel() {
-        return enterpriseModel;
+    public GetEnterpriseModel getEnterprise() {
+        return enterprise;
     }
 
-    public void setEnterpriseModel(GetEnterpriseModel enterpriseModel) {
-        this.enterpriseModel = enterpriseModel;
+    public void setEnterprise(GetEnterpriseModel enterprise) {
+        this.enterprise = enterprise;
     }
 }
