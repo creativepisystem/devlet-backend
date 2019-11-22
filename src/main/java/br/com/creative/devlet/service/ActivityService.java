@@ -19,14 +19,15 @@ public interface ActivityService {
     BussinessException STAGE_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected stage and user are not in the same enterprise");
     BussinessException PERSON_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected person and the user are not in the same enterprise");
     BussinessException ACTIVITY_AND_USER_NOT_IN_SAME_ENTERPRISE_EXCEPTION = new BussinessException("The selected activity and the user are not in the same enterprise");
+    BussinessException NO_ACTIVITIES_IN_LIST_EXCEPTION = new BussinessException("There aren't activities in the list");
 
     GetActivityModel findById(Long id) throws BussinessException;
 
     List<GetActivityModel> findAll();
 
-    List<GetActivityModel> findActivitiesOfPerson(Long personId);
+    List<GetActivityModel> findActivitiesOfPerson(Long personId) throws BussinessException;
 
-    List<GetActivityModel> findActivitiesOfStage(Long stageId);
+    List<GetActivityModel> findActivitiesOfStage(Long stageId) throws BussinessException;
 
     Activity create(PostActivityModel model, SecurityUser user) throws BussinessException;
 

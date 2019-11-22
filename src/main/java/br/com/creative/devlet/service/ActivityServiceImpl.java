@@ -40,14 +40,18 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<GetActivityModel> findActivitiesOfPerson(Long personId){
+    public List<GetActivityModel> findActivitiesOfPerson(Long personId) throws BussinessException {
+        PERSON_DOENST_EXISTS_EXCEPTION.thrownIf(!personService.findById(personId).isPresent());
         List<Activity> activities = activityRepository.findActivitiesOfPerson(personId);
+        NO_ACTIVITIES_IN_LIST_EXCEPTION.thrownIf(activities.isEmpty());
         return activities.stream().map(this::convertEntityToGetActivityModel).collect(Collectors.toList());
     }
 
     @Override
-    public List<GetActivityModel> findActivitiesOfStage(Long stageId){
+    public List<GetActivityModel> findActivitiesOfStage(Long stageId) throws BussinessException {
+        STAGE_DOENST_EXISTS_EXCEPTION.thrownIf(stageService.findById(stageId)==null);
         List<Activity> activities = activityRepository.findActivitiesOfStage(stageId);
+        NO_ACTIVITIES_IN_LIST_EXCEPTION.thrownIf(activities.isEmpty());
         return activities.stream().map(this::convertEntityToGetActivityModel).collect(Collectors.toList());
     }
 
