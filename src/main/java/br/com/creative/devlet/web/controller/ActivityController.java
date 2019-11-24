@@ -42,16 +42,18 @@ public class ActivityController extends BaseController {
         }
     }
 
-    @GetMapping("/{owner}/activities/{id}")
-    public ResponseEntity<?> getActivitiesOfPerson(@PathVariable String owner,@PathVariable Long id){
+    @GetMapping("/{owner}/{id}")
+    public ResponseEntity<?> getActivitiesOfProjectOrOPerson(@PathVariable String owner,@PathVariable Long id){
         List<GetActivityModel> activityModels;
         try {
             if(owner.equals("person")) {
                 activityModels = activityService.findActivitiesOfPerson(id);
-            }else {
+                return new ResponseEntity<>(activityModels,HttpStatus.OK);
+            }else if(owner.equals("project")){
                 activityModels = activityService.findActivitiesOfStage(id);
+                return new ResponseEntity<>(activityModels,HttpStatus.OK);
             }
-            return new ResponseEntity<>(activityModels,HttpStatus.OK);
+            return getResponse("The first path variable must be that of a person or a project",EnumResponseType.BUSSINESS_EXCEPTION);
         }catch (BussinessException e){
             return getResponse(e.getMessage(),EnumResponseType.BUSSINESS_EXCEPTION);
         }catch (Exception e){
