@@ -6,10 +6,8 @@ import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetActivityModel;
 import br.com.creative.devlet.model.PostActivityModel;
 import br.com.creative.devlet.model.PutActivityModel;
-import br.com.creative.devlet.model.PutStageModel;
 import br.com.creative.devlet.security.SecurityUser;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ActivityService {

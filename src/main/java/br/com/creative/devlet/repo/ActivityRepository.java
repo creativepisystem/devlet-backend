@@ -1,8 +1,6 @@
 package br.com.creative.devlet.repo;
 
 import br.com.creative.devlet.entity.Activity;
-import br.com.creative.devlet.enums.EnumActivityStatus;
-import br.com.creative.devlet.model.GetActivityModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

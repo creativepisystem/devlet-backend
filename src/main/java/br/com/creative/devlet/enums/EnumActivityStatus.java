@@ -1,7 +1,5 @@
 package br.com.creative.devlet.enums;
 
-import javax.persistence.Enumerated;
-
 public enum EnumActivityStatus {
     OPEN("open"),
     CLOSED("closed"),

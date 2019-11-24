@@ -1,6 +1,5 @@
 package br.com.creative.devlet.service;
 
-import br.com.creative.devlet.entity.Activity;
 import br.com.creative.devlet.entity.Stage;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetStageModel;
@@ -11,7 +10,6 @@ import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

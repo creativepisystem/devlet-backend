@@ -1,6 +1,5 @@
 package br.com.creative.devlet.security.auth;
 
-import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.security.SecurityUser;
 import br.com.creative.devlet.security.TokenHelper;
 import org.springframework.security.core.context.SecurityContextHolder;

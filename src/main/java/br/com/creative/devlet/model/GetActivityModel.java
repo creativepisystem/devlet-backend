@@ -5,7 +5,6 @@ import br.com.creative.devlet.enums.EnumActivityStatus;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.Date;
-import java.util.List;
 
 public class GetActivityModel {
     private Long id;

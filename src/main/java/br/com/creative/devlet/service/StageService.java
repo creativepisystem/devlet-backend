@@ -1,6 +1,5 @@
 package br.com.creative.devlet.service;
 
-import br.com.creative.devlet.entity.Activity;
 import br.com.creative.devlet.entity.Stage;
 import br.com.creative.devlet.exception.BussinessException;
 import br.com.creative.devlet.model.GetStageModel;

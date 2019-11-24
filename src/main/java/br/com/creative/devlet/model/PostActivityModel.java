@@ -1,7 +1,6 @@
 package br.com.creative.devlet.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class PostActivityModel {
     private String title;
