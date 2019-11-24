@@ -1,45 +1,57 @@
 package br.com.creative.devlet.model;
 
+
 import java.util.List;
-
 public class CheckListModel {
-    private String title;
-    private List<Item> items;
+    private List<CheckList> checkLists;
 
-    public String getTitle() {
-        return title;
+    public List<CheckList> getCheckLists() {
+        return checkLists;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCheckLists(List<CheckList> checkLists) {
+        this.checkLists = checkLists;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
+    public static class CheckList {
+        private String title;
+        private List<Item> items;
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public static class Item {
-        private Boolean checked;
-        private String descrition;
-
-        public Boolean getChecked() {
-            return checked;
+        public String getTitle() {
+            return title;
         }
 
-        public void setChecked(Boolean checked) {
-            this.checked = checked;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
-        public String getDescrition() {
-            return descrition;
+        public List<Item> getItems() {
+            return items;
         }
 
-        public void setDescrition(String descrition) {
-            this.descrition = descrition;
+        public void setItems(List<Item> items) {
+            this.items = items;
+        }
+
+        public static class Item {
+            private Boolean checked;
+            private String description;
+
+            public Boolean getChecked() {
+                return checked;
+            }
+
+            public void setChecked(Boolean checked) {
+                this.checked = checked;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String descrition) {
+                this.description = descrition;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class PutActivityModel {
     private String description;
     private Date openingDate;
     private Date conclusionDate;
-    private List<CheckListModel> checkList;
+    private CheckListModel checkList;
     private Long stageId;
     private Long personId;
 
@@ -53,11 +53,11 @@ public class PutActivityModel {
         this.conclusionDate = conclusionDate;
     }
 
-    public List<CheckListModel> getCheckList() {
+    public CheckListModel getCheckList() {
         return checkList;
     }
 
-    public void setCheckList(List<CheckListModel> checkList) {
+    public void setCheckList(CheckListModel checkList) {
         this.checkList = checkList;
     }
 

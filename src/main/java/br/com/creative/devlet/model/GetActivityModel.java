@@ -2,6 +2,8 @@ package br.com.creative.devlet.model;
 
 import br.com.creative.devlet.enums.EnumActivityStatus;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 import java.util.List;
 
@@ -9,10 +11,11 @@ public class GetActivityModel {
     private Long id;
     private String title;
     private String description;
+    @Enumerated(value = EnumType.STRING)
     private EnumActivityStatus status;
     private Date openingDate;
     private Date conclusionDate;
-    private List<CheckListModel> checkList;
+    private CheckListModel checkList;
     private GetPersonModel person;
     private GetStageModel stage;
     private GetEnterpriseModel enterprise;
@@ -65,11 +68,11 @@ public class GetActivityModel {
         this.conclusionDate = conclusionDate;
     }
 
-    public List<CheckListModel> getCheckList() {
+    public CheckListModel getCheckList() {
         return checkList;
     }
 
-    public void setCheckList(List<CheckListModel> checkList) {
+    public void setCheckList(CheckListModel checkList) {
         this.checkList = checkList;
     }
 

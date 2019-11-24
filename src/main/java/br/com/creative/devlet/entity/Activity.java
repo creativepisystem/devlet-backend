@@ -2,14 +2,19 @@ package br.com.creative.devlet.entity;
 
 import br.com.creative.devlet.enums.EnumActivityStatus;
 import br.com.creative.devlet.model.CheckListModel;
-import br.com.creative.devlet.util.HashMapConverter;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "activity")
+@TypeDef(
+        name = "jsonb",
+        typeClass = JsonBinaryType.class
+)
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +27,20 @@ public class Activity {
     private String description;
 
     @Column(insertable = false,columnDefinition = "varchar(50) default 'CLOSED' not null")
+    @Enumerated(EnumType.STRING)
     private EnumActivityStatus status;
 
-    @Column(name = "opening_date", insertable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "opening_date")
     private Date openingDate;
 
-    @Column(name = "conclusion_date", insertable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "conclusion_date")
     private Date conclusionDate;
 
-    @Column
-    @Convert(converter = HashMapConverter.class)
-    private List<CheckListModel> checklist;
+    @Type(type = "jsonb")
+    @Column(name = "content",columnDefinition = "jsonb")
+    private CheckListModel checklist;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -95,11 +103,11 @@ public class Activity {
         this.conclusionDate = conclusionDate;
     }
 
-    public List<CheckListModel> getChecklist() {
+    public CheckListModel getChecklist() {
         return checklist;
     }
 
-    public void setChecklist(List<CheckListModel> checklist) {
+    public void setChecklist(CheckListModel checklist) {
         this.checklist = checklist;
     }
 
