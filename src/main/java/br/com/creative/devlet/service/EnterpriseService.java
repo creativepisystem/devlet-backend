@@ -13,7 +13,7 @@ public interface EnterpriseService {
     BussinessException NON_UNIQUE_CNPJ_EXCEPTION = new BussinessException("There is a matching cnpj in use");
     //Business Exception regarding the existence of a matching email inside the data base
     BussinessException NON_UNIQUE_EMAIL_EXCEPTION = new BussinessException("Ther is a matching email in use");
-    //Business Exception regarding the defence between the given cnpj and the cnpj within the requested enterprise
+    //Business Exception regarding the difference between the given cnpj and the cnpj within the requested enterprise
     BussinessException CNPJ_DOES_NOT_MATCH_ID_EXCEPTION = new BussinessException("The Cnpj doesn't match the enterprise Id");
     //Business Exception regarding the unaccomplished requirements given for the creation of a enterprise
     BussinessException ENTERPRISE_CREATION_DENIED_EXCEPTION = new BussinessException("The creation of a enterprise is not possible");
