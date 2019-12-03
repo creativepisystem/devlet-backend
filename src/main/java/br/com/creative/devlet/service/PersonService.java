@@ -2,6 +2,7 @@ package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Person;
 import br.com.creative.devlet.exception.BussinessException;
+import br.com.creative.devlet.model.GetPersonModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,4 +26,6 @@ public interface PersonService {
     Optional<Person> findByCpf(String cpf);
 
     void save(Person entity);
+
+    GetPersonModel convertEntityToGetPersonModel(Person entity);
 }

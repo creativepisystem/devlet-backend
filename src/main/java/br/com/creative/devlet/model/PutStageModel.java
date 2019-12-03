@@ -1,7 +1,5 @@
 package br.com.creative.devlet.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.*;
 import java.util.Date;
 

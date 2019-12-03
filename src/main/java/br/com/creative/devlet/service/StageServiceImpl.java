@@ -11,7 +11,6 @@ import br.com.creative.devlet.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +29,11 @@ public class StageServiceImpl implements StageService {
         Optional<Stage> entity = stageRepository.findById(id);
         STAGE_DOESNT_EXISTS_EXCEPTION.thrownIf(!entity.isPresent());
         return convertEntityToGetStageModel(entity.get());
+    }
+
+    @Override
+    public Stage findEntityById(Long id) {
+        return stageRepository.findById(id).get();
     }
 
     @Override

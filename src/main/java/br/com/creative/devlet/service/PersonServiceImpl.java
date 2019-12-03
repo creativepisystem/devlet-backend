@@ -1,6 +1,7 @@
 package br.com.creative.devlet.service;
 
 import br.com.creative.devlet.entity.Person;
+import br.com.creative.devlet.model.GetPersonModel;
 import br.com.creative.devlet.repo.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,23 +62,10 @@ public class PersonServiceImpl implements PersonService {
         personRepository.save(entity);
     }
 
-
-//    private Person convertModelToEntity(UserAndPersonModel model) {
-//        Person entity = new Person();
-//        if (model.getId() != null) {
-//            entity.setId(model.getId());
-//        }
-//        entity.setCity(model.getCity());
-//        entity.setCpf(model.getCpf());
-//        entity.setCountry(model.getCountry());
-//        entity.setName(model.getName());
-//        entity.setNeighborhood(model.getNeighborhood());
-//        entity.setNumber(model.getNumber());
-//        entity.setPhone(model.getPhone());
-//        entity.setState(model.getState());
-//        entity.setStreet(model.getStreet());
-//        entity.setZipCode(model.getZipCode());
-//        entity.setEnterprise_id(model.getEnterprise_id());
-//        return entity;
-//    }
+    public GetPersonModel convertEntityToGetPersonModel(Person entity){
+        GetPersonModel model = new GetPersonModel();
+        model.setName(entity.getName());
+        model.setId(entity.getId());
+        return model;
+    }
 }

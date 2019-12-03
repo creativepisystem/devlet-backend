@@ -6,7 +6,6 @@ import br.com.creative.devlet.model.*;
 import br.com.creative.devlet.security.SecurityUser;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface UserService {
